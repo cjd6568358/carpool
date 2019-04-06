@@ -12,6 +12,12 @@
   padding: 20rpx;
   border-radius: 10rpx;
   font-size: 32rpx;
+  display: flex;
+}
+
+.form-item .options {
+  display: inline-flex;
+  flex: 1;
 }
 
 .form-item:not(:first-child) {
@@ -21,10 +27,6 @@
 .form-item label {
   width: 160rpx;
   display: inline-block;
-}
-
-.form-item.title .options, .form-item.free .options {
-  display: inline-flex;
 }
 
 .form-item.title .options view, .form-item.free .options view {
@@ -50,8 +52,8 @@
 }
 
 .form-item.title .options view.active, .form-item.free .options view.active {
-  background-color: #409eff;
-  border-color: #409eff;
+  background-color: #1aad19;
+  border-color: #1aad19;
   color: #fff;
 }
 
@@ -64,4 +66,22 @@
   font-size: 20rpx;
   color: #a3a3a3;
   margin-left: 20rpx;
+}
+
+.form-item .options textarea {
+  width: 100%;
+  height: 200rpx;
+}
+
+.form-buttons {
+  margin-top: 20rpx;
+  display: flex;
+}
+
+.form-buttons button {
+  flex: 1;
+}
+
+.form-buttons button:first-child {
+  margin-right: 30rpx;
 }

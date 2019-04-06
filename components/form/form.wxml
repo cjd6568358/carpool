@@ -60,5 +60,26 @@
       </picker>
     </view>
   </view>
-
+  <view class='form-item contact' wx:if="{{mode !== 'search'}}">
+    <label>联系方式</label>
+    <view class='options'>
+      <input maxlength="11" data-contact='contact' bindinput="bindKeyInput" placeholder="请输入您的手机号码" type="number" />
+    </view>
+  </view>
+  <view class='form-item remark' wx:if="{{mode !== 'search'}}">
+    <view class='options'>
+      <textarea maxlength="120" data-remark='remark' bindinput="bindKeyInput" placeholder="还有什么要补充的呢？" />
+    </view>
+  </view>
+  <view class='form-buttons' wx:if="{{mode === 'publish' || mode === 'edit'}}">
+    <button class='submit' type="primary" bindtap='bindSubmit'>
+      <block wx:if="{{mode === 'publish'}}">
+        提交
+      </block>
+      <block wx:else>
+        更新
+      </block>
+    </button>
+    <button class='reset' type="default" bindtap='bindReset'>重置</button>
+  </view>
 </view>

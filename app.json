@@ -1,8 +1,8 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/my/my",
-    "pages/publish/publish"
+    "pages/publish/publish",
+    "pages/my/my"
   ],
   "permission": {
     "scope.userLocation": {
