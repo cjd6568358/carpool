@@ -1,0 +1,64 @@
+<!--components/form/form.wxml-->
+<view class='form-area'>
+  <view class='form-item title'>
+    <label>事宜</label>
+    <view class='options'>
+      <view class='{{title === "人找车" && "active"}}' data-title='人找车' bindtap='bindClick'>人找车</view>
+      <view class='{{title === "车找人" && "active"}}' data-title='车找人' bindtap='bindClick'>车找人</view>
+    </view>
+  </view>
+  <view class='form-item date'>
+    <label>时间</label>
+    <view class='options'>
+      <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
+        <view class="picker">
+          {{date}}
+        </view>
+      </picker>
+      <view class='tips'>(最多只能选择未来三天以内)</view>
+    </view>
+  </view>
+  <view class='form-item free'>
+    <label>空座</label>
+    <view class='options'>
+      <view class='{{free === -1 && "active"}}' data-free='{{-1}}' bindtap='bindClick'>不限</view>
+      <view class='{{free === 1 && "active"}}' data-free='{{1}}' bindtap='bindClick'>1</view>
+      <view class='{{free === 2 && "active"}}' data-free='{{2}}' bindtap='bindClick'>2</view>
+      <view class='{{free === 3 && "active"}}' data-free='{{3}}' bindtap='bindClick'>3</view>
+      <view class='{{free === 4 && "active"}}' data-free='{{4}}' bindtap='bindClick'>4</view>
+    </view>
+  </view>
+  <view class='form-item fromCity'>
+    <label>出发地</label>
+    <view class='options'>
+      <picker bindchange="bindFromCityChange" value="{{fromCityIndex}}" range="{{cityList}}">
+        <view class="picker">
+          {{cityList[fromCityIndex]}}
+        </view>
+      </picker>
+      <text space="nbsp"> - </text>
+      <picker bindchange="bindFromCityAreaChange" value="{{fromCityAreaIndex}}" range="{{fromCityAreaList}}">
+        <view class="picker">
+          {{fromCityAreaList[fromCityAreaIndex]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+  <view class='form-item toCity'>
+    <label>目的地</label>
+    <view class='options'>
+      <picker bindchange="bindToCityChange" value="{{toCityIndex}}" range="{{cityList}}">
+        <view class="picker">
+          {{cityList[toCityIndex]}}
+        </view>
+      </picker>
+      <text space="nbsp"> - </text>
+      <picker bindchange="bindToCityAreaChange" value="{{toCityAreaIndex}}" range="{{toCityAreaList}}">
+        <view class="picker">
+          {{toCityAreaList[toCityAreaIndex]}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+</view>

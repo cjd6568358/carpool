@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view id="root">
+  <form>
+  </form>
+</view>
