@@ -1,5 +1,5 @@
 <!--index.wxml-->
 <view id="root">
-  <form>
+  <form bindsubmit="onSearch">
   </form>
 </view>

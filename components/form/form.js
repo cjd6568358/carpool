@@ -1,6 +1,5 @@
 // components/search/search.js
 import { formatTime, getCurrCityByIP, cityArea } from '../../utils/util.js'
-import http from '../../utils/http.js'
 Component({
   /**
    * 组件的生命周期方法
@@ -9,7 +8,7 @@ Component({
     attached() {
       // 在组件实例进入页面节点树时执行
       getCurrCityByIP().then(currCity => {
-        let { fromCity, toCity } = this.properties
+        let { fromCity, toCity, mode } = this.properties
         if (currCity === '上海市') {
           fromCity = ['上海', '全部']
           toCity = ['建湖', '全部']
@@ -36,11 +35,11 @@ Component({
         this.attachedData = { ...this.data }
         this.setData({
           ...this.data
+        }, () => {
+          if (mode === 'search') {
+            this.bindSubmit()
+          }
         })
-        http.post({
-          url: 'getStorageSync',
-          data: { key: 'carpool' }
-        }).then(data => console.log(data))
       })
     },
     detached() {
@@ -131,7 +130,7 @@ Component({
    * 组件的初始数据
    */
   data: {
-    records: []
+
   },
 
   /**
@@ -139,8 +138,11 @@ Component({
    */
   methods: {
     bindSubmit() {
-      this.triggerEvent('submit', this.data)
-      this.bindReset()
+      let { mode, cityList, title, contact, date, free, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
+      let fromCity = cityList[fromCityIndex] + '-' + fromCityAreaList[fromCityAreaIndex]
+      let toCity = cityList[toCityIndex] + '-' + toCityAreaList[toCityAreaIndex]
+      this.triggerEvent('submit', { mode, title, fromCity, toCity, contact, date, free, remark })
+      // this.bindReset()
     },
     bindReset() {
       console.log(this.attachedData)

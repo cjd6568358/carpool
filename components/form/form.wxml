@@ -1,14 +1,14 @@
 <!--components/form/form.wxml-->
 <view class='form-area'>
   <view class='form-item title'>
-    <label>事宜</label>
+    <label class='label'>事宜</label>
     <view class='options'>
-      <view class='{{title === "人找车" && "active"}}' data-title='人找车' bindtap='bindClick'>人找车</view>
-      <view class='{{title === "车找人" && "active"}}' data-title='车找人' bindtap='bindClick'>车找人</view>
+      <view class='item {{title === "人找车" && "active"}}' data-title='人找车' bindtap='bindClick'>人找车</view>
+      <view class='item {{title === "车找人" && "active"}}' data-title='车找人' bindtap='bindClick'>车找人</view>
     </view>
   </view>
   <view class='form-item date'>
-    <label>时间</label>
+    <label class='label'>时间</label>
     <view class='options'>
       <picker mode="date" value="{{date}}" start="{{startDate}}" end="{{endDate}}" bindchange="bindDateChange">
         <view class="picker">
@@ -19,17 +19,17 @@
     </view>
   </view>
   <view class='form-item free'>
-    <label>空座</label>
+    <label class='label'>空座</label>
     <view class='options'>
-      <view class='{{free === -1 && "active"}}' data-free='{{-1}}' bindtap='bindClick'>不限</view>
-      <view class='{{free === 1 && "active"}}' data-free='{{1}}' bindtap='bindClick'>1</view>
-      <view class='{{free === 2 && "active"}}' data-free='{{2}}' bindtap='bindClick'>2</view>
-      <view class='{{free === 3 && "active"}}' data-free='{{3}}' bindtap='bindClick'>3</view>
-      <view class='{{free === 4 && "active"}}' data-free='{{4}}' bindtap='bindClick'>4</view>
+      <view class='item {{free === -1 && "active"}}' data-free='{{-1}}' bindtap='bindClick'>不限</view>
+      <view class='item {{free === 1 && "active"}}' data-free='{{1}}' bindtap='bindClick'>1</view>
+      <view class='item {{free === 2 && "active"}}' data-free='{{2}}' bindtap='bindClick'>2</view>
+      <view class='item {{free === 3 && "active"}}' data-free='{{3}}' bindtap='bindClick'>3</view>
+      <view class='item {{free === 4 && "active"}}' data-free='{{4}}' bindtap='bindClick'>4</view>
     </view>
   </view>
   <view class='form-item fromCity'>
-    <label>出发地</label>
+    <label class='label'>出发地</label>
     <view class='options'>
       <picker bindchange="bindFromCityChange" value="{{fromCityIndex}}" range="{{cityList}}">
         <view class="picker">
@@ -45,7 +45,7 @@
     </view>
   </view>
   <view class='form-item toCity'>
-    <label>目的地</label>
+    <label class='label'>目的地</label>
     <view class='options'>
       <picker bindchange="bindToCityChange" value="{{toCityIndex}}" range="{{cityList}}">
         <view class="picker">
@@ -61,18 +61,18 @@
     </view>
   </view>
   <view class='form-item contact' wx:if="{{mode !== 'search'}}">
-    <label>联系方式</label>
+    <label class='label'>联系方式</label>
     <view class='options'>
-      <input maxlength="11" data-contact='contact' bindinput="bindKeyInput" placeholder="请输入您的手机号码" type="number" />
+      <input maxlength="11" data-key='contact' bindinput="bindKeyInput" placeholder="请输入您的手机号码" type="number" />
     </view>
   </view>
   <view class='form-item remark' wx:if="{{mode !== 'search'}}">
     <view class='options'>
-      <textarea maxlength="120" data-remark='remark' bindinput="bindKeyInput" placeholder="还有什么要补充的呢？" />
+      <textarea class='textarea' maxlength="120" data-key='remark' bindinput="bindKeyInput" placeholder="还有什么要补充的呢？" />
     </view>
   </view>
   <view class='form-buttons' wx:if="{{mode === 'publish' || mode === 'edit'}}">
-    <button class='submit' type="primary" bindtap='bindSubmit'>
+    <button class='btn submit' type="primary" bindtap='bindSubmit'>
       <block wx:if="{{mode === 'publish'}}">
         提交
       </block>
@@ -80,6 +80,6 @@
         更新
       </block>
     </button>
-    <button class='reset' type="default" bindtap='bindReset'>重置</button>
+    <button class='btn reset' type="default" bindtap='bindReset'>重置</button>
   </view>
 </view>
