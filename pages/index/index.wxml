@@ -2,4 +2,6 @@
 <view id="root">
   <form bindsubmit="onSearch">
   </form>
+  <records wx:if="{{currRecords.length}}" records="{{currRecords}}">
+  </records>
 </view>

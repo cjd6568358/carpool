@@ -1,5 +1,7 @@
 // pages/publish.js
+const app = getApp()
 import http from '../../utils/http.js'
+import { getAllRecords, updateAllRecords } from '../../utils/util.js'
 Page({
 
   /**
@@ -9,40 +11,18 @@ Page({
 
   },
 
-  onSubmit({ detail: { mode, title, fromCity, toCity, contact, date, free, remark } }) {
-    console.log(mode, title, fromCity, toCity, contact, date, free, remark)
+  onSubmit({ detail: { mode, title, fromCity, toCity, phone, name, year, month, day, free, remark } }) {
+    console.log(mode, title, fromCity, toCity, phone, name, year, month, day, free, remark)
     if (mode === 'publish') {
-      http.post({
-        url: 'getStorageSync',
-        data: { key: 'carpool' }
-      }).then((records) => {
-        if (records === '') {
-          records = []
-        } else {
-          records = JSON.parse(records)
-        }
-        console.log(records)
-        this.setData({
-          records
-        }, () => {
-          records.push({
-            title, fromCity, toCity, contact, date, free, remark,
-            time: new Date().getTime()
-          })
-          http.post({
-            url: 'setStorageSync',
-            data: { key: 'carpool', value: records }
-          }).then(newRecords => {
-            if (newRecords) {
-              console.log(newRecords)
-              this.setData({
-                records: newRecords
-              }, () => {
-                wx.switchTab({
-                  url: 'pages/index/index'
-                })
-              })
-            }
+      getAllRecords().then(records => {
+        records.push({
+          title, fromCity, toCity, phone, name, year, month, day, free, remark,
+          guid: app.globalData.guid,
+          time: new Date().getTime()
+        })
+        updateAllRecords(records).then(() => {
+          wx.switchTab({
+            url: '/pages/index/index'
           })
         })
       })

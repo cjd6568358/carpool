@@ -6,12 +6,12 @@ App({
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
-
+    let guid = wx.getStorageSync('guid')
     if (!wx.getStorageSync('guid')) {
-      let guid = calculatGUID()
-      this.globalData.guid = guid
+      guid = calculatGUID()
       wx.setStorageSync('guid', guid)
     }
+    this.globalData.guid = guid
 
 
     // 登录
@@ -43,6 +43,7 @@ App({
   },
   globalData: {
     userInfo: null,
-    guid: ""
+    guid: "",
+    records: []
   }
 })

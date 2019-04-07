@@ -82,6 +82,12 @@ Component({
         fromCityAreaIndex: 0,
         toCityAreaIndex: 0
       })
+    },
+    'date': function (date) {
+      let [year, month, day] = date.split('-');
+      this.setData({
+        year, month, day
+      })
     }
   },
   /**
@@ -116,7 +122,11 @@ Component({
       type: Number,
       value: -1
     },
-    contact: {
+    phone: {
+      type: String,
+      value: ""
+    },
+    name: {
       type: String,
       value: ""
     },
@@ -138,10 +148,10 @@ Component({
    */
   methods: {
     bindSubmit() {
-      let { mode, cityList, title, contact, date, free, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
+      let { mode, cityList, title, phone, name, year, month, day, free, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
       let fromCity = cityList[fromCityIndex] + '-' + fromCityAreaList[fromCityAreaIndex]
       let toCity = cityList[toCityIndex] + '-' + toCityAreaList[toCityAreaIndex]
-      this.triggerEvent('submit', { mode, title, fromCity, toCity, contact, date, free, remark })
+      this.triggerEvent('submit', { mode, title, fromCity, toCity, phone, name, year, month, day, free, remark })
       // this.bindReset()
     },
     bindReset() {
@@ -151,8 +161,10 @@ Component({
       })
     },
     bindKeyInput({ detail: { value }, target: { dataset: { key } } }) {
+      let data = {}
+      data[key] = value
       this.setData({
-        key: value
+        ...data
       })
     },
     bindDateChange({ detail: { value } }) {

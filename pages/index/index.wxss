@@ -1,23 +1,2 @@
 /**index.wxss**/
 
-#root {
-}
-
-.car-user, .car-owner {
-  width: 200rpx;
-  height: 200rpx;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  border-radius: 50%;
-}
-
-.car-user {
-  margin-bottom: 200rpx;
-  background-color: #3389e7;
-}
-
-.car-owner {
-  background-color: #5a4ec0;
-}

@@ -60,10 +60,16 @@
       </picker>
     </view>
   </view>
-  <view class='form-item contact' wx:if="{{mode !== 'search'}}">
+  <view class='form-item name' wx:if="{{mode !== 'search'}}">
+    <label class='label'>联系人</label>
+    <view class='options'>
+      <input data-key='name' bindinput="bindKeyInput" placeholder="请输入您的姓名" />
+    </view>
+  </view>
+  <view class='form-item phone' wx:if="{{mode !== 'search'}}">
     <label class='label'>联系方式</label>
     <view class='options'>
-      <input maxlength="11" data-key='contact' bindinput="bindKeyInput" placeholder="请输入您的手机号码" type="number" />
+      <input maxlength="11" data-key='phone' bindinput="bindKeyInput" placeholder="请输入您的手机号码" type="number" />
     </view>
   </view>
   <view class='form-item remark' wx:if="{{mode !== 'search'}}">

@@ -1,3 +1,4 @@
+import http from './http.js'
 const formatTime = (date, fmt) => {
   var o = {
     "M+": date.getMonth() + 1, //月份
@@ -95,10 +96,43 @@ const cityArea = {
   ]
 }
 
+const getAllRecords = () => {
+  return new Promise((resolve, reject) => {
+    http.post({
+      url: 'getStorageSync',
+      data: { key: 'carpool' }
+    }).then(({ data: records }) => {
+      records = records.filter(({ year, month, day }) => {
+        // 过滤所有过期数据
+        if (new Date(`${year}-${month}-${day}`).getTime() + 24 * 60 * 60 * 1000 < Date.now()) {
+          
+          return false
+        } else {
+          return true
+        }
+      })
+      resolve(records)
+    })
+  })
+}
+
+const updateAllRecords = (records) => {
+  return new Promise((resolve, reject) => {
+    http.post({
+      url: 'setStorageSync',
+      data: { key: 'carpool', value: records }
+    }).then(() => {
+      resolve()
+    })
+  })
+}
+
 module.exports = {
   formatTime,
   getTotalDaysArr,
   calculatGUID,
   getCurrCityByIP,
-  cityArea
+  cityArea,
+  getAllRecords,
+  updateAllRecords
 }
