@@ -33,6 +33,7 @@ Component({
           endDate
         }, this.properties)
         this.attachedData = { ...this.data }
+        console.log(this.attachedData)
         this.setData({
           ...this.data
         }, () => {
@@ -88,7 +89,13 @@ Component({
       this.setData({
         year, month, day
       })
-    }
+    },
+    '**': function () {
+      // 每次 setData 都触发
+      if (this.properties.mode === 'search') {
+        this.bindSubmit()
+      }
+    },
   },
   /**
    * 组件的属性列表
@@ -121,6 +128,10 @@ Component({
     free: {
       type: Number,
       value: -1
+    },
+    fee: {
+      type: Number,
+      value: 100
     },
     phone: {
       type: String,

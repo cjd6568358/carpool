@@ -1,1 +1,21 @@
 /* pages/my/my.wxss */
+.user-info {
+  padding: 40rpx 80rpx;
+  display: flex;
+  background: #fff;
+  margin-bottom: 10rpx;
+  font-size: 32rpx;
+}
+
+.user-info .avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+}
+
+.user-info .other {
+  margin-left: 100rpx;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}

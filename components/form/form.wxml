@@ -21,7 +21,7 @@
   <view class='form-item free'>
     <label class='label'>空座</label>
     <view class='options'>
-      <view class='item {{free === -1 && "active"}}' data-free='{{-1}}' bindtap='bindClick'>不限</view>
+      <view wx:if="{{mode === 'search'}}" class='item {{free === -1 && "active"}}' data-free='{{-1}}' bindtap='bindClick'>不限</view>
       <view class='item {{free === 1 && "active"}}' data-free='{{1}}' bindtap='bindClick'>1</view>
       <view class='item {{free === 2 && "active"}}' data-free='{{2}}' bindtap='bindClick'>2</view>
       <view class='item {{free === 3 && "active"}}' data-free='{{3}}' bindtap='bindClick'>3</view>
@@ -66,6 +66,12 @@
       <input data-key='name' bindinput="bindKeyInput" placeholder="请输入您的姓名" />
     </view>
   </view>
+  <view class='form-item fee' wx:if="{{mode !== 'search'}}">
+    <label class='label'>拼车费用</label>
+    <view class='options'>
+      <input data-key='fee' value="{{fee}}" bindinput="bindKeyInput" type="number" placeholder="请输入费用" />
+    </view>
+  </view>
   <view class='form-item phone' wx:if="{{mode !== 'search'}}">
     <label class='label'>联系方式</label>
     <view class='options'>
@@ -74,7 +80,7 @@
   </view>
   <view class='form-item remark' wx:if="{{mode !== 'search'}}">
     <view class='options'>
-      <textarea class='textarea' maxlength="120" data-key='remark' bindinput="bindKeyInput" placeholder="还有什么要补充的呢？" />
+      <textarea show-confirm-bar="{{false}}" class='textarea' maxlength="120" data-key='remark' bindinput="bindKeyInput" placeholder="还有什么要补充的呢？" />
     </view>
   </view>
   <view class='form-buttons' wx:if="{{mode === 'publish' || mode === 'edit'}}">

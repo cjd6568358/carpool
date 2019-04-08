@@ -27,8 +27,6 @@
 }
 
 .name {
-  display: inline-block;
-  width: 40%;
 }
 
 .phone {
@@ -36,6 +34,10 @@
 }
 
 .free {
+  display: inline-block;
+  width: 50%;
+}
+.fee {
   display: inline-block;
   width: 50%;
 }

@@ -1,18 +1,35 @@
 // pages/my/my.js
+const myApp = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    userInfo:null
+  },
+  onGotUserInfo(e) {
+    this.setData({
+      userInfo: e.detail.userInfo
+    })
+    myApp.globalData.userInfo = e.detail.userInfo
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    if (myApp.globalData.userInfo) {
+      this.setData({
+        userInfo: myApp.globalData.userInfo
+      })
+    } else {
+      myApp.userInfoReadyCallback = (res) => {
+        this.setData({
+          userInfo: res.userInfo
+        })
+      }
+    }
   },
 
   /**

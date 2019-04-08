@@ -8,6 +8,9 @@
       <view class='free'>
         剩余空座 : {{item.free}}
       </view>
+      <view class='fee'>
+        拼车费用 : {{item.fee}}
+      </view>
       <view class='phone'>
         联系方式 : {{item.phone}}
       </view>
