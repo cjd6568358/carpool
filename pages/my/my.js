@@ -1,12 +1,18 @@
 // pages/my/my.js
 const myApp = getApp()
+import { getAllRecords } from '../../utils/util.js'
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    userInfo:null
+    userInfo: null,
+    showContact: false,
+    showEdit: true,
+    showDelete: true,
+    myRecords: [],
+    recordInfo: null
   },
   onGotUserInfo(e) {
     this.setData({
@@ -14,7 +20,34 @@ Page({
     })
     myApp.globalData.userInfo = e.detail.userInfo
   },
-
+  getMyRecords() {
+    wx.showLoading({
+      title: '加载中',
+    })
+    getAllRecords().then(records => {
+      let myRecords = records.filter(item => {
+        if (item.guid !== myApp.globalData.guid) {
+          return true
+        } else {
+          return false
+        }
+      })
+      this.setData({
+        myRecords,
+      }, () => {
+        wx.hideLoading()
+      })
+    })
+  },
+  bindeditRecord({ detail }) {
+    this.setData({
+      recordInfo: detail
+    }, () => {
+      wx.navigateTo({
+        url: `/pages/record/record?mode=edit&recordInfo=${JSON.stringify(detail)}`,
+      })
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -43,7 +76,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.getMyRecords()
   },
 
   /**
@@ -64,7 +97,8 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getMyRecords()
+    wx.stopPullDownRefresh()
   },
 
   /**

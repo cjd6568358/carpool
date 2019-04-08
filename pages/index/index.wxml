@@ -1,7 +1,15 @@
 <!--index.wxml-->
 <view id="root">
-  <form bindsubmit="onSearch">
+  <movable-area>
+    <movable-view inertia="{{true}}" direction="all">
+      <button bindtap='bindPublish'>
+        <text>我 发</text>
+        <text>要 布</text>
+      </button>
+    </movable-view>
+  </movable-area>
+  <form mode="search" free="{{-1}}" bindsubmit="onSearch">
   </form>
-  <records wx:if="{{currRecords.length}}" records="{{currRecords}}">
-  </records>
+  <recordList wx:if="{{currRecords.length}}" records="{{currRecords}}">
+  </recordList>
 </view>

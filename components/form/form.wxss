@@ -53,8 +53,8 @@
 }
 
 .form-item.title .options .item.active, .form-item.free .options .item.active {
-  background-color: #1aad19;
-  border-color: #1aad19;
+  background-color: #04BE02;
+  border-color: #04BE02;
   color: #fff;
 }
 

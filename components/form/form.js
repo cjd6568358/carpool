@@ -1,4 +1,4 @@
-// components/search/search.js
+// components/form/form.js
 import { formatTime, getCurrCityByIP, cityArea } from '../../utils/util.js'
 Component({
   /**
@@ -8,8 +8,14 @@ Component({
     attached() {
       // 在组件实例进入页面节点树时执行
       getCurrCityByIP().then(currCity => {
-        let { fromCity, toCity, mode } = this.properties
-        if (currCity === '上海市') {
+        let { fromCity, toCity, mode, dynamic = {}, ...others } = this.properties
+        if (dynamic.fromCity) {
+          fromCity = dynamic.fromCity
+        }
+        if (dynamic.toCity) {
+          toCity = dynamic.toCity
+        }
+        if (currCity === '上海市' && mode === 'search') {
           fromCity = ['上海', '全部']
           toCity = ['建湖', '全部']
         }
@@ -20,26 +26,34 @@ Component({
         let fromCityAreaIndex = cityArea[fromCity[0]].findIndex(item => item === fromCity[1])
         let toCityIndex = cityList.findIndex(item => item === toCity[0])
         let toCityAreaIndex = cityArea[toCity[0]].findIndex(item => item === toCity[1])
+
+        let fromCityAreaList = cityArea[cityList[fromCityIndex]]
+        let toCityAreaList = cityArea[cityList[toCityIndex]]
         Object.assign(this.data, {
+          mode,
           cityArea,
           cityList,
           fromCity,
           toCity,
           fromCityIndex,
-          toCityIndex,
+          fromCityAreaIndex,
+          fromCityAreaList,
           toCityIndex,
           toCityAreaIndex,
+          toCityAreaList,
           startDate,
           endDate
-        }, this.properties)
+        }, others, {
+            ...dynamic
+          })
         this.attachedData = { ...this.data }
-        console.log(this.attachedData)
+        console.log('attachedData:', this.attachedData)
         this.setData({
           ...this.data
         }, () => {
-          if (mode === 'search') {
-            this.bindSubmit()
-          }
+          // if (mode === 'search') {
+          //   this.bindSubmit()
+          // }
         })
       })
     },
@@ -62,28 +76,28 @@ Component({
     }
   },
   observers: {
-    'fromCityIndex': function (fromCityIndex) {
-      let { cityList, cityArea, toCityIndex } = this.data
-      let fromCityAreaList = cityArea[cityList[fromCityIndex]]
-      let toCityAreaList = cityArea[cityList[toCityIndex]]
-      this.setData({
-        fromCityAreaList,
-        toCityAreaList,
-        fromCityAreaIndex: 0,
-        toCityAreaIndex: 0
-      })
-    },
-    'toCityIndex': function (toCityIndex) {
-      let { cityList, cityArea, fromCityIndex } = this.data
-      let fromCityAreaList = cityArea[cityList[fromCityIndex]]
-      let toCityAreaList = cityArea[cityList[toCityIndex]]
-      this.setData({
-        fromCityAreaList,
-        toCityAreaList,
-        fromCityAreaIndex: 0,
-        toCityAreaIndex: 0
-      })
-    },
+    // 'fromCityIndex': function (fromCityIndex) {
+    //   let { cityList, cityArea, toCityIndex } = this.data
+    //   let fromCityAreaList = cityArea[cityList[fromCityIndex]]
+    //   let toCityAreaList = cityArea[cityList[toCityIndex]]
+    //   this.setData({
+    //     fromCityAreaList,
+    //     toCityAreaList,
+    //     fromCityAreaIndex: 0,
+    //     toCityAreaIndex: 0
+    //   })
+    // },
+    // 'toCityIndex': function (toCityIndex) {
+    //   let { cityList, cityArea, fromCityIndex } = this.data
+    //   let fromCityAreaList = cityArea[cityList[fromCityIndex]]
+    //   let toCityAreaList = cityArea[cityList[toCityIndex]]
+    //   this.setData({
+    //     fromCityAreaList,
+    //     toCityAreaList,
+    //     fromCityAreaIndex: 0,
+    //     toCityAreaIndex: 0
+    //   })
+    // },
     'date': function (date) {
       let [year, month, day] = date.split('-');
       this.setData({
@@ -93,6 +107,7 @@ Component({
     '**': function () {
       // 每次 setData 都触发
       if (this.properties.mode === 'search') {
+        console.log('**')
         this.bindSubmit()
       }
     },
@@ -103,7 +118,7 @@ Component({
   properties: {
     mode: { // 属性名
       type: String, // 类型（必填），目前接受的类型包括：String, Number, Boolean, Object, Array, null（表示任意类型）
-      value: 'search', // 属性初始值（可选），如果未指定则会根据类型选择一个['search','publish','readonly','edit']
+      value: 'add', // 属性初始值（可选），如果未指定则会根据类型选择一个['search','add','view','edit']
       observer(newVal, oldVal, changedPath) {
         // 属性被改变时执行的函数（可选），通常 newVal 就是新设置的数据， oldVal 是旧数
         // 新版本基础库不推荐使用这个字段，而是使用 Component 构造器的 observer 字段代替（这样会有更强的功能和更好的性能）
@@ -127,7 +142,7 @@ Component({
     },
     free: {
       type: Number,
-      value: -1
+      value: 1
     },
     fee: {
       type: Number,
@@ -144,6 +159,10 @@ Component({
     remark: {
       type: String,
       value: ""
+    },
+    dynamic: {
+      type: Object,
+      value: {}
     }
   },
 
@@ -159,10 +178,19 @@ Component({
    */
   methods: {
     bindSubmit() {
-      let { mode, cityList, title, phone, name, year, month, day, free, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
+      let { mode, cityList, title, phone, name, year, month, day, free, fee, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
+      if (!cityList) {
+        return
+      }
       let fromCity = cityList[fromCityIndex] + '-' + fromCityAreaList[fromCityAreaIndex]
       let toCity = cityList[toCityIndex] + '-' + toCityAreaList[toCityAreaIndex]
-      this.triggerEvent('submit', { mode, title, fromCity, toCity, phone, name, year, month, day, free, remark })
+      let params = {
+        mode, title, fromCity, toCity, phone, name, year, month, day, free, fee, remark
+      }
+      if (mode === 'edit') {
+        params.id = this.data.id
+      }
+      this.triggerEvent('submit', params)
       // this.bindReset()
     },
     bindReset() {
@@ -184,15 +212,21 @@ Component({
       })
     },
     bindFromCityChange({ detail: { value } }) {
+      let { cityList, cityArea } = this.data
       let fromCityIndex = +value
-      let { cityList } = this.data
       let toCityIndex = fromCityIndex + 1
       if (cityList.length - 1 === fromCityIndex) {
         toCityIndex = 0
       }
+      let fromCityAreaList = cityArea[cityList[fromCityIndex]]
+      let toCityAreaList = cityArea[cityList[toCityIndex]]
       this.setData({
+        fromCityAreaList,
+        toCityAreaList,
         fromCityIndex,
-        toCityIndex
+        toCityIndex,
+        fromCityAreaIndex: 0,
+        toCityAreaIndex: 0
       })
     },
     bindFromCityAreaChange({ detail: { value } }) {
@@ -201,15 +235,21 @@ Component({
       })
     },
     bindToCityChange({ detail: { value } }) {
+      let { cityList, cityArea } = this.data
       let toCityIndex = +value
-      let { cityList } = this.data
       let fromCityIndex = toCityIndex + 1
       if (cityList.length - 1 === toCityIndex) {
         fromCityIndex = 0
       }
+      let fromCityAreaList = cityArea[cityList[fromCityIndex]]
+      let toCityAreaList = cityArea[cityList[toCityIndex]]
       this.setData({
+        fromCityAreaList,
+        toCityAreaList,
         fromCityIndex,
-        toCityIndex
+        toCityIndex,
+        fromCityAreaIndex: 0,
+        toCityAreaIndex: 0
       })
     },
     bindToCityAreaChange({ detail: { value } }) {

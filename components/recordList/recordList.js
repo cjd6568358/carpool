@@ -1,5 +1,5 @@
 // components/records/records.js
-import { formatTime } from '../../utils/util.js'
+import { getAllRecords, updateAllRecords, formatTime } from '../../utils/util.js'
 Component({
   /**
    * 组件的生命周期方法
@@ -7,6 +7,7 @@ Component({
   lifetimes: {
     attached() {
       // 在组件实例进入页面节点树时执行
+      // console.log(this.properties)
     },
     detached() {
       // 在组件实例被从页面节点树移除时执行
@@ -36,6 +37,18 @@ Component({
       type: Array,
       value: []
     },
+    showContact: {
+      type: Boolean,
+      value: true
+    },
+    showEdit: {
+      type: Boolean,
+      value: false
+    },
+    showDelete: {
+      type: Boolean,
+      value: false
+    }
   },
 
   /**
@@ -54,6 +67,20 @@ Component({
         phoneNumber: phone
       })
     },
+    bindEdit({ target: { dataset: { record } } }) {
+      this.triggerEvent('editRecord', record)
+    },
+    bindDelete({ target: { dataset: { record } } }) {
+      getAllRecords().then(records => {
+        records = records.filter(item => item.id !== record.id)
+        updateAllRecords(records).then(() => {
+          wx.showToast({
+            title: '删除成功!',
+          })
+          this.triggerEvent('reload', {})
+        })
+      })
+    }
   }
 })
 

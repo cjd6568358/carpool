@@ -1,5 +1,0 @@
-<!--pages/publish.wxml-->
-<view id="root">
-  <form mode="publish" bindsubmit="onSubmit">
-  </form>
-</view>

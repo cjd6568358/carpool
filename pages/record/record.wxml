@@ -1,0 +1,5 @@
+<!--pages/record.wxml-->
+<view id="root">
+  <form mode="{{mode}}" dynamic="{{dynamic}}" bindsubmit="onSubmit">
+  </form>
+</view>

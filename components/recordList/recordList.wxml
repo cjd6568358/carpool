@@ -1,0 +1,33 @@
+<!--components/records/records.wxml-->
+<view class='records'>
+  <view class='record' wx:for="{{records}}" wx:key="index">
+    <view class='detail'>
+      <view class='from-to'>
+        {{item.fromCity}} → {{item.toCity}}
+      </view>
+      <view class='name'>
+        {{item.title === '人找车'? '乘客':'车主'}} : {{item.name}}
+      </view>
+      <view class='free'>
+        空座 : {{item.free}}
+      </view>
+      <view class='fee'>
+        费用 : {{item.fee}}
+      </view>
+      <view class='remark'>
+        {{item.remark}}
+      </view>
+    </view>
+    <view class='action'>
+      <button class='contact-btn' wx:if="{{showContact}}" data-phone='{{item.phone}}' bindtap='bindCall' type="primary" size='mini'>
+        联系我
+      </button>
+      <button class='edit-btn' wx:if="{{showEdit}}"  data-record='{{item}}' bindtap='bindEdit' type="default" size='mini'>
+        编辑
+      </button>
+      <button class='delete-btn' wx:if="{{showDelete}}"  data-record='{{item}}' bindtap='bindDelete' type="warn" size='mini'>
+        删除
+      </button>
+    </view>
+  </view>
+</view>

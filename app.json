@@ -1,7 +1,7 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/publish/publish",
+    "pages/record/record",
     "pages/my/my"
   ],
   "permission": {
@@ -14,10 +14,6 @@
       {
         "pagePath": "pages/index/index",
         "text": "拼车大厅"
-      },
-      {
-        "pagePath": "pages/publish/publish",
-        "text": "我要发布"
       },
       {
         "pagePath": "pages/my/my",

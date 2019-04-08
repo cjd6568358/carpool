@@ -5,7 +5,9 @@ import http from '../../utils/http.js'
 import { getAllRecords } from '../../utils/util.js'
 Page({
   data: {
-    searchParams: {},
+    searchParams: {
+      free: -1
+    },
     currRecords: []
   },
   //事件处理函数
@@ -32,8 +34,18 @@ Page({
   onLoad: function (options) {
 
   },
+  onShow() {
+    if (this.data.searchParams.detail){
+      this.onSearch(this.data.searchParams)
+    }
+  },
   onPullDownRefresh() {
     this.onSearch(this.data.searchParams)
     wx.stopPullDownRefresh()
   },
+  bindPublish() {
+    wx.navigateTo({
+      url: '/pages/record/record?mode=add',
+    })
+  }
 })

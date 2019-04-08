@@ -1,7 +1,7 @@
 {
   "usingComponents": {
     "form": "/components/form/form",
-    "records": "/components/records/records"
+    "recordList": "/components/recordList/recordList"
   },
   "enablePullDownRefresh": true,
   "navigationBarTitleText": "建沪拼车小助手"
