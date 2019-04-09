@@ -11,7 +11,7 @@ Page({
     currRecords: []
   },
   //事件处理函数
-  onSearch({ detail: { mode, title, fromCity, toCity, phone, name, year, month, day, free, remark } }) {
+  onSearch({ detail: { mode, type, fromCity, toCity, phone, name, year, month, day, free, remark } }) {
     wx.showLoading({
       title: '正在为您查询中',
     })
@@ -19,7 +19,7 @@ Page({
     let toCityArr = toCity.split('-');
     getAllRecords().then(records => {
       let currRecords = records.filter(item => {
-        if (item.title !== title && item.year === year && item.month === month && item.day === day && (free === -1 || free === item.free) && (item.fromCity === fromCity || (item.fromCity.startsWith(fromCityArr[0]) && fromCityArr[1] === '全部')) && (item.toCity === toCity || (item.toCity.startsWith(toCityArr[0]) && toCityArr[1] === '全部'))) {
+        if (item.type !== type && item.year === year && item.month === month && item.day === day && (free === -1 || free === item.free) && (item.fromCity === fromCity || (item.fromCity.startsWith(fromCityArr[0]) && fromCityArr[1] === '全部')) && (item.toCity === toCity || (item.toCity.startsWith(toCityArr[0]) && toCityArr[1] === '全部'))) {
           return true
         } else {
           return false
@@ -27,7 +27,7 @@ Page({
       })
       this.setData({
         currRecords,
-        searchParams: { detail: { mode, title, fromCity, toCity, phone, name, year, month, day, free, remark } }
+        searchParams: { detail: { mode, type, fromCity, toCity, phone, name, year, month, day, free, remark } }
       }, () => {
         wx.hideLoading()
       })
@@ -44,10 +44,5 @@ Page({
   onPullDownRefresh() {
     this.onSearch(this.data.searchParams)
     wx.stopPullDownRefresh()
-  },
-  bindPublish() {
-    wx.navigateTo({
-      url: '/pages/record/record?mode=add',
-    })
   }
 })

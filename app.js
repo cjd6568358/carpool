@@ -1,13 +1,11 @@
 //app.js
 import { calculatGUID } from './utils/util.js'
+import http from './utils/http.js'
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    // var logs = wx.getStorageSync('logs') || []
-    // logs.unshift(Date.now())
-    // wx.setStorageSync('logs', logs)
     let guid = wx.getStorageSync('guid')
-    if (!wx.getStorageSync('guid')) {
+    if (!guid) {
       guid = calculatGUID()
       wx.setStorageSync('guid', guid)
       wx.showModal({
@@ -17,12 +15,26 @@ App({
     }
     this.globalData.guid = guid
 
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
+    let openId = wx.getStorageSync('openId')
+    if (!openId) {
+      // 登录
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          console.log(res)
+          http.get({
+            url: `wechat/code2Session/${res.code}`
+          }).then(({ data }) => {
+            wx.setStorageSync('openId', data.openid)
+            this.globalData.openId = data.openid
+          })
+        }
+      })
+    } else {
+      this.globalData.openId = openId
+    }
+
+
     // 获取用户信息
     wx.getSetting({
       success: res => {
@@ -47,6 +59,7 @@ App({
   globalData: {
     userInfo: null,
     guid: "",
+    openId: '',
     records: []
   }
 })

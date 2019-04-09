@@ -1,0 +1,5 @@
+<!--components/publish/publish.wxml-->
+<button class='publish' bindtap='bindPublish'>
+  <text>我 发</text>
+  <text>要 布</text>
+</button>

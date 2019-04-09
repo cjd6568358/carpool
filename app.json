@@ -1,9 +1,9 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/record/record",
-    "pages/my/my",
-    "pages/record/search"
+    "pages/record/info",
+    "pages/record/search",
+    "pages/my/my"
   ],
   "permission": {
     "scope.userLocation": {

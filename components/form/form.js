@@ -124,9 +124,9 @@ Component({
         // 新版本基础库不推荐使用这个字段，而是使用 Component 构造器的 observer 字段代替（这样会有更强的功能和更好的性能）
       }
     },
-    title: {
-      type: String,
-      value: "人找车"
+    type: {
+      type: Number,
+      value: 1
     },
     date: {
       type: String,
@@ -178,14 +178,14 @@ Component({
    */
   methods: {
     bindSubmit() {
-      let { mode, cityList, title, phone, name, year, month, day, free, fee, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
+      let { mode, cityList, type, phone, name, year, month, day, free, fee, fromCityAreaIndex, fromCityAreaList, fromCityIndex, remark, toCityAreaIndex, toCityAreaList, toCityIndex } = this.data
       if (!cityList) {
         return
       }
       let fromCity = cityList[fromCityIndex] + '-' + fromCityAreaList[fromCityAreaIndex]
       let toCity = cityList[toCityIndex] + '-' + toCityAreaList[toCityAreaIndex]
       let params = {
-        mode, title, fromCity, toCity, phone, name, year, month, day, free, fee, remark
+        mode, type, fromCity, toCity, phone, name, year, month, day, free, fee, remark
       }
       if (mode === 'edit') {
         params.id = this.data.id

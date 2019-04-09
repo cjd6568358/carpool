@@ -1,4 +1,4 @@
-// pages/publish.js
+// pages/info.js
 const app = getApp()
 import http from '../../utils/http.js'
 import { getAllRecords, updateAllRecords, calculatGUID } from '../../utils/util.js'
@@ -12,13 +12,13 @@ Page({
     dynamic: {}
   },
 
-  onSubmit({ detail: { mode, title, fromCity, toCity, phone, name, year, month, day, free, fee, remark, id } }) {
-    console.log(mode, title, fromCity, toCity, phone, name, year, month, day, free, fee, remark)
+  onSubmit({ detail: { mode, type, fromCity, toCity, phone, name, year, month, day, free, fee, remark, id } }) {
+    console.log(mode, type, fromCity, toCity, phone, name, year, month, day, free, fee, remark)
     if (mode === 'add') {
       getAllRecords().then(records => {
         records.push({
-          title, fromCity, toCity, phone, name, year, month, day, free, fee, remark,
-          userId: app.globalData.guid,
+          type, fromCity, toCity, phone, name, year, month, day, free, fee, remark,
+          openId: app.globalData.openId,
           id: calculatGUID(),
           time: new Date().getTime()
         })
@@ -32,8 +32,8 @@ Page({
       getAllRecords().then(records => {
         records = records.filter(item => item.id !== id)
         records.push({
-          title, fromCity, toCity, phone, name, year, month, day, free, fee, remark, id,
-          userId: app.globalData.guid,
+          type, fromCity, toCity, phone, name, year, month, day, free, fee, remark, id,
+          openId: app.globalData.openId,
           time: new Date().getTime()
         })
         updateAllRecords(records).then(() => {
@@ -51,7 +51,7 @@ Page({
   checkHistoryRecord() {
     getAllRecords().then(records => {
       records = records.filter(record => {
-        return record.userId === app.globalData.guid
+        return record.openId === app.globalData.openId
       })
       if (records.length) {
         wx.showModal({

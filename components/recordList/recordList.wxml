@@ -3,11 +3,11 @@
   <view class='record' wx:for="{{records}}" wx:key="index">
     <view class='detail'>
       <view class='from-to'>
-        <block wx:if="{{showEdit}}">[{{item.title}}]</block>
+        <block wx:if="{{showEdit}}">[{{item.type === 1 ? '人找车':'车找人'}}]</block>
         {{item.fromCity}} → {{item.toCity}}
       </view>
       <view class='name'>
-        {{item.title === '人找车'? '乘客':'车主'}} : {{item.name}}
+        {{item.type === 1 ? '乘客':'车主'}} : {{item.name}}
       </view>
       <view class='free'>
         空座 : {{item.free}}
@@ -23,10 +23,10 @@
       <button class='contact-btn' wx:if="{{showContact}}" data-phone='{{item.phone}}' bindtap='bindCall' type="primary" size='mini'>
         联系我
       </button>
-      <button class='edit-btn' wx:if="{{showEdit}}"  data-record='{{item}}' bindtap='bindEdit' type="default" size='mini'>
+      <button class='edit-btn' wx:if="{{showEdit}}" data-record='{{item}}' bindtap='bindEdit' type="default" size='mini'>
         编辑
       </button>
-      <button class='delete-btn' wx:if="{{showDelete}}"  data-record='{{item}}' bindtap='bindDelete' type="warn" size='mini'>
+      <button class='delete-btn' wx:if="{{showDelete}}" data-record='{{item}}' bindtap='bindDelete' type="warn" size='mini'>
         删除
       </button>
     </view>

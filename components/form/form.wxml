@@ -1,10 +1,10 @@
 <!--components/form/form.wxml-->
 <view class='form-area'>
-  <view class='form-item title'>
+  <view class='form-item type'>
     <label class='label'>我想要</label>
     <view class='options'>
-      <view class='item {{title === "人找车" && "active"}}' data-title='人找车' bindtap='bindClick'>找车</view>
-      <view class='item {{title === "车找人" && "active"}}' data-title='车找人' bindtap='bindClick'>找人</view>
+      <view class='item {{type === 1 && "active"}}' data-type='{{1}}' bindtap='bindClick'>找车</view>
+      <view class='item {{type === 2 && "active"}}' data-type='{{2}}' bindtap='bindClick'>找人</view>
     </view>
   </view>
   <view class='form-item date'>

@@ -23,7 +23,7 @@ Page({
     })
     getAllRecords().then(records => {
       let myRecords = records.filter(item => {
-        return item.userId === myApp.globalData.guid
+        return item.openId === myApp.globalData.openId
       })
       this.setData({
         myRecords,
@@ -37,7 +37,7 @@ Page({
       recordInfo: detail
     }, () => {
       wx.navigateTo({
-        url: `/pages/record/record?mode=edit&recordInfo=${JSON.stringify(detail)}`,
+        url: `/pages/record/info?mode=edit&recordInfo=${JSON.stringify(detail)}`,
       })
     })
   },

@@ -30,7 +30,7 @@
   display: inline-block;
 }
 
-.form-item.title .options .item, .form-item.free .options .item {
+.form-item.type .options .item, .form-item.free .options .item {
   display: block;
   padding: 5rpx 20rpx;
   text-align: center;
@@ -39,20 +39,20 @@
   min-width: 100rpx;
 }
 
-.form-item.title .options .item:first-child,
+.form-item.type .options .item:first-child,
 .form-item.free .options .item:first-child {
   border-top-left-radius: 10rpx;
   border-bottom-left-radius: 10rpx;
   border-left: 1rpx solid #dcdfe6;
 }
 
-.form-item.title .options .item:last-child,
+.form-item.type .options .item:last-child,
 .form-item.free .options .item:last-child {
   border-top-right-radius: 10rpx;
   border-bottom-right-radius: 10rpx;
 }
 
-.form-item.title .options .item.active, .form-item.free .options .item.active {
+.form-item.type .options .item.active, .form-item.free .options .item.active {
   background-color: #04be02;
   border-color: #04be02;
   color: #fff;

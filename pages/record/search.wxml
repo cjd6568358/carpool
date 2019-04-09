@@ -1,2 +1,25 @@
 <!--pages/record/search.wxml-->
-<text>pages/record/search.wxml</text>
+<wxs module="util">
+  var mapMode = function(mode) {
+    if (mode === 'common') {
+      return {
+        showContact: true,
+        showEdit: false,
+        showDelete: false
+      }
+    } else if(mode === 'admin') {
+      return {
+        showContact: false,
+        showEdit: true,
+        showDelete: true
+      }
+    }
+  }
+  module.exports.mapMode = mapMode;
+</wxs>
+<view class='search'>
+  <input value='{{key}}' focus='{{true}}' bindinput="bindKeyInput" placeholder-class="textarea-placeholder" placeholder="请输入手机号查询"></input>
+</view>
+<recordList records="{{currRecords}}" showContact="{{util.mapMode(mode).showContact}}" showEdit="{{util.mapMode(mode).showEdit}}" showDelete="{{util.mapMode(mode).showDelete}}" bindreload="searchRecords" bindeditRecord="bindeditRecord" >
+</recordList>
+<publish wx:if="{{!currRecords.length}}"></publish>
