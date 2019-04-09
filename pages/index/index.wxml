@@ -10,6 +10,6 @@
   </movable-area>
   <form mode="search" free="{{-1}}" bindsubmit="onSearch">
   </form>
-  <recordList wx:if="{{currRecords.length}}" records="{{currRecords}}">
+  <recordList records="{{currRecords}}">
   </recordList>
 </view>

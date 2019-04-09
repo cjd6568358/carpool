@@ -1,7 +1,7 @@
 /* components/records/records.wxss */
 
 .records {
-  margin: 20rpx;
+  margin: 0 20rpx;
   font-size: 28rpx;
 }
 
@@ -54,4 +54,11 @@
 
 .action button+button {
   margin-top: 10rpx;
+}
+
+.empty {
+  height: 160rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

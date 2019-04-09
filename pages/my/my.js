@@ -8,9 +8,6 @@ Page({
    */
   data: {
     userInfo: null,
-    showContact: false,
-    showEdit: true,
-    showDelete: true,
     myRecords: [],
     recordInfo: null
   },
@@ -26,11 +23,7 @@ Page({
     })
     getAllRecords().then(records => {
       let myRecords = records.filter(item => {
-        if (item.guid !== myApp.globalData.guid) {
-          return true
-        } else {
-          return false
-        }
+        return item.userId === myApp.globalData.guid
       })
       this.setData({
         myRecords,

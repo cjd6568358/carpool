@@ -15,9 +15,11 @@ Page({
     wx.showLoading({
       title: '正在为您查询中',
     })
+    let fromCityArr = fromCity.split('-');
+    let toCityArr = toCity.split('-');
     getAllRecords().then(records => {
       let currRecords = records.filter(item => {
-        if (item.title !== title && item.year === year && item.month === month && item.day === day && (free === -1 || free === item.free) && (fromCity.indexOf('全部') || item.fromCity === fromCity) && (toCity.indexOf('全部') || item.toCity === toCity)) {
+        if (item.title !== title && item.year === year && item.month === month && item.day === day && (free === -1 || free === item.free) && (item.fromCity === fromCity || (item.fromCity.startsWith(fromCityArr[0]) && fromCityArr[1] === '全部')) && (item.toCity === toCity || (item.toCity.startsWith(toCityArr[0]) && toCityArr[1] === '全部'))) {
           return true
         } else {
           return false
@@ -35,7 +37,7 @@ Page({
 
   },
   onShow() {
-    if (this.data.searchParams.detail){
+    if (this.data.searchParams.detail) {
       this.onSearch(this.data.searchParams)
     }
   },

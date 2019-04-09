@@ -1,10 +1,10 @@
 <!--components/form/form.wxml-->
 <view class='form-area'>
   <view class='form-item title'>
-    <label class='label'>事宜</label>
+    <label class='label'>我想要</label>
     <view class='options'>
-      <view class='item {{title === "人找车" && "active"}}' data-title='人找车' bindtap='bindClick'>人找车</view>
-      <view class='item {{title === "车找人" && "active"}}' data-title='车找人' bindtap='bindClick'>车找人</view>
+      <view class='item {{title === "人找车" && "active"}}' data-title='人找车' bindtap='bindClick'>找车</view>
+      <view class='item {{title === "车找人" && "active"}}' data-title='车找人' bindtap='bindClick'>找人</view>
     </view>
   </view>
   <view class='form-item date'>
@@ -42,6 +42,7 @@
           {{fromCityAreaList[fromCityAreaIndex]}}
         </view>
       </picker>
+      <view class='tips'>(左侧地区可更改)</view>
     </view>
   </view>
   <view class='form-item toCity'>
@@ -58,29 +59,30 @@
           {{toCityAreaList[toCityAreaIndex]}}
         </view>
       </picker>
+      <view class='tips'>(左侧地区可更改)</view>
     </view>
   </view>
   <view class='form-item name' wx:if="{{mode !== 'search'}}">
     <label class='label'>联系人</label>
     <view class='options'>
-      <input data-key='name' value="{{name}}" bindinput="bindKeyInput" placeholder="请输入您的姓名" />
+      <input data-key='name' value="{{name}}" bindinput="bindKeyInput" placeholder-class="textarea-placeholder" placeholder="请输入您的姓名" />
     </view>
   </view>
   <view class='form-item fee' wx:if="{{mode !== 'search'}}">
     <label class='label'>拼车费用</label>
     <view class='options'>
-      <input data-key='fee' value="{{fee}}" bindinput="bindKeyInput" type="number" placeholder="请输入费用" />
+      <input data-key='fee' value="{{fee}}" bindinput="bindKeyInput" type="number" placeholder-class="textarea-placeholder" placeholder="请输入费用" />
     </view>
   </view>
   <view class='form-item phone' wx:if="{{mode !== 'search'}}">
     <label class='label'>联系方式</label>
     <view class='options'>
-      <input maxlength="11" value="{{phone}}"  data-key='phone' bindinput="bindKeyInput" placeholder="请输入您的手机号码" type="number" />
+      <input maxlength="11" value="{{phone}}" data-key='phone' bindinput="bindKeyInput" placeholder-class="textarea-placeholder" placeholder="请输入您的手机号码" type="number" />
     </view>
   </view>
   <view class='form-item remark' wx:if="{{mode !== 'search'}}">
     <view class='options'>
-      <textarea show-confirm-bar="{{false}}"  value="{{remark}}" class='textarea' maxlength="120" data-key='remark' bindinput="bindKeyInput" placeholder="还有什么要补充的呢？" />
+      <textarea show-confirm-bar="{{false}}" value="{{remark}}" class='textarea' maxlength="120" data-key='remark' bindinput="bindKeyInput" placeholder="具体出发时间，是否有小孩，行李有多少...个性化需求都可以写在这里哦~~" />
     </view>
   </view>
   <view class='form-buttons' wx:if="{{mode === 'add' || mode === 'edit'}}">

@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/record/record",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/record/search"
   ],
   "permission": {
     "scope.userLocation": {

@@ -10,9 +10,12 @@ App({
     if (!wx.getStorageSync('guid')) {
       guid = calculatGUID()
       wx.setStorageSync('guid', guid)
+      wx.showModal({
+        title: '提示',
+        content: '本平台仅作信息交流展示，请自行鉴别信息真伪'
+      })
     }
     this.globalData.guid = guid
-
 
     // 登录
     wx.login({

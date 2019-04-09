@@ -29,6 +29,11 @@
       <button open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="onGotUserInfo">获取用户信息</button>
     </block>
   </view>
-  <recordList wx:if="{{myRecords.length}}" bindreload="getMyRecords" bindeditRecord="bindeditRecord" records="{{myRecords}}" showContact="{{showContact}}" showEdit="{{showEdit}}" showDelete="{{showDelete}}">
-  </recordList>
+  <view class='section'>
+    <view class='title'>
+      我的发布
+    </view>
+    <recordList bindreload="getMyRecords" bindeditRecord="bindeditRecord" records="{{myRecords}}" showContact="{{false}}" showEdit="{{true}}" showDelete="{{true}}">
+    </recordList>
+  </view>
 </view>

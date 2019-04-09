@@ -3,6 +3,7 @@
   <view class='record' wx:for="{{records}}" wx:key="index">
     <view class='detail'>
       <view class='from-to'>
+        <block wx:if="{{showEdit}}">[{{item.title}}]</block>
         {{item.fromCity}} → {{item.toCity}}
       </view>
       <view class='name'>
@@ -29,5 +30,8 @@
         删除
       </button>
     </view>
+  </view>
+  <view wx:if="{{!records.length}}" class='record empty'>
+    暂无数据
   </view>
 </view>
