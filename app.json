@@ -14,11 +14,11 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "拼车大厅"
+        "text": "大厅"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "个人中心"
+        "text": "我的"
       }
     ]
   },
@@ -32,7 +32,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "建沪拼车小助手",
+    "navigationBarTitleText": "建湖上海顺风车大全",
     "navigationBarTextStyle": "black"
   }
 }

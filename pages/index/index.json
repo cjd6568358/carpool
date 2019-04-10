@@ -4,6 +4,5 @@
     "form": "/components/form/form",
     "recordList": "/components/recordList/recordList"
   },
-  "enablePullDownRefresh": true,
-  "navigationBarTitleText": "建沪拼车小助手"
+  "enablePullDownRefresh": true
 }

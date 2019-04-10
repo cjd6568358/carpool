@@ -2,5 +2,5 @@
   "usingComponents": {
     "form": "/components/form/form"
   },
-  "navigationBarTitleText": "发布拼车信息"
+  "navigationBarTitleText": "发布信息"
 }

@@ -10,7 +10,7 @@ App({
       wx.setStorageSync('guid', guid)
       wx.showModal({
         title: '提示',
-        content: '本平台仅作信息交流展示，请自行鉴别信息真伪'
+        content: '本平台仅作车主/乘客信息的查询和展示，请自行鉴别信息真伪'
       })
     }
     this.globalData.guid = guid
@@ -21,7 +21,6 @@ App({
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          console.log(res)
           http.get({
             url: `wechat/code2Session/${res.code}`
           }).then(({ data }) => {
