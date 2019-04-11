@@ -1,7 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/record/info",
     "pages/record/search",
     "pages/my/my"
   ],
@@ -32,7 +31,7 @@
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "建湖上海顺风车大全",
+    "navigationBarTitleText": "建湖顺风车大全",
     "navigationBarTextStyle": "black"
   }
 }

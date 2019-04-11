@@ -22,4 +22,4 @@
 </view>
 <recordList records="{{currRecords}}" showContact="{{util.mapMode(mode).showContact}}" showEdit="{{util.mapMode(mode).showEdit}}" showDelete="{{util.mapMode(mode).showDelete}}" bindreload="searchRecords" bindeditRecord="bindeditRecord" >
 </recordList>
-<publish wx:if="{{!currRecords.length}}"></publish>
+<!-- <publish wx:if="{{!currRecords.length}}"></publish> -->
