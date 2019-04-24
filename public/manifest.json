@@ -1,6 +1,6 @@
 {
-  "name": "carpool",
-  "short_name": "carpool",
+  "name": "建湖拼车小助手",
+  "short_name": "建湖拼车",
   "icons": [
     {
       "src": "./img/logo.png",
