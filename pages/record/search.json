@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "publish": "/components/publish/publish",
-    "recordList": "/components/recordList/recordList"
-  }
-}

@@ -1,6 +1,0 @@
-{
-  "usingComponents": {
-    "recordList": "/components/recordList/recordList"
-  },
-  "enablePullDownRefresh": true
-}

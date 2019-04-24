@@ -1,8 +1,0 @@
-<!--index.wxml-->
-<view id="root">
-  <!-- <publish></publish> -->
-  <form mode="search" free="{{-1}}" bindsubmit="onSearch">
-  </form>
-  <recordList records="{{currRecords}}">
-  </recordList>
-</view>

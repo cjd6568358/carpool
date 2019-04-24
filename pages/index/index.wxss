@@ -1,7 +1,0 @@
-/**index.wxss**/
-
-publish {
-  position: fixed;
-  right: 50rpx;
-  top: 20rpx;
-}
