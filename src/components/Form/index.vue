@@ -55,9 +55,9 @@
 			</div>
 		</div>
 		<div class="form-item phone" v-if="local_mode !== 'search'">
-			<label class="label">联系方式</label>
+			<label class="label require">联系方式</label>
 			<div class="options">
-				<input maxlength="11" v-model="local_phone" placeholder="请输入您的手机号码" type="number">
+				<input maxlength="11" v-model="local_phone" placeholder="请输入您的手机号码" type="tel">
 			</div>
 		</div>
 		<div class="form-item remark" v-if="local_mode !== 'search'">
@@ -285,6 +285,10 @@ export default {
                     this.$Toast.info("时间只能选择未来三天以内");
                     return;
                 }
+                if(!/^0?1[123456789]\d{9}$/.test(local_phone)){
+                    this.$Toast.info("请输入正确的手机号");
+                    return;
+                }
             }
 			let fromCity =
 				cityList[fromCityIndex] +
@@ -386,6 +390,14 @@ export default {
 	.label {
 		width: 160px;
 		display: inline-block;
+        position: relative;
+        &.require:before {
+            content: '*';
+            position: absolute;
+            top: 50%;
+            left: -50%;
+            color: red;
+        }
 	}
 }
 
