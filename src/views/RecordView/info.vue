@@ -9,7 +9,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import Form from "../../components/Form/index.vue";
-import { calculatGUID } from "../../util/index";
+import { calculatGUID, sendMsg } from "../../util/index";
 export default {
 	components: { Form },
 	data() {
@@ -53,17 +53,20 @@ export default {
 			remark,
 			id
 		}) {
-			let today = new Date().getDate();
-			if (day < today || day > today + 3) {
-				this.$Toast.info("时间只能选择未来三天以内");
-				return;
-			}
 			await this.FETCH_ALL_RECORDS();
 			let records = [];
 			if (mode === "add") {
 				records = this.records;
+				sendMsg(
+					"拼车小助手",
+					`用户:${this.userId} 手机号:${phone} 发布了拼车信息`
+				);
 			} else if (mode === "edit") {
 				records = this.records.filter(item => item.orderId !== orderId);
+				sendMsg(
+					"拼车小助手",
+					`用户:${this.userId} 手机号:${phone} 修改了拼车信息`
+				);
 			}
 			records.push({
 				type,

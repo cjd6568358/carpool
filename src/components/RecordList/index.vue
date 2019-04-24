@@ -12,7 +12,7 @@
 				<div class="remark">{{item.remark}}</div>
 			</div>
 			<div class="action">
-				<a class="contact-btn btn" v-if="showContact" :href="'tel:' + item.phone" size="mini">联系我</a>
+				<a class="contact-btn btn" v-if="showContact" :href="'tel:' + item.phone" size="mini" v-dc="`用户:${userId} 联系了${item.type === 1 ? '乘客':'车主'}${item.phone}`">联系我</a>
 				<button class="edit-btn btn" v-if="showEdit" @click="bindEdit(item)" type="default" size="mini">编辑</button>
 				<button class="delete-btn btn" v-if="showDelete" @click="bindDelete(item)" type="warn" size="mini">删除</button>
 			</div>
@@ -41,7 +41,9 @@ export default {
 			default: false
 		}
 	},
-	computed: {},
+	computed: {
+        ...mapState(["userId"]),
+    },
 	methods: {
 		...mapActions(["FETCH_ALL_RECORDS", "UPDATE_ALL_RECORDS"]),
 		bindEdit(record) {

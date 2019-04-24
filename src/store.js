@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { calculatGUID } from './util/index'
+import { calculatGUID, sendMsg } from './util/index'
 import { getStorageSync, setStorageSync } from './api'
 
 Vue.use(Vuex)
@@ -9,6 +9,7 @@ let userId = localStorage.getItem('userId')
 if (!userId) {
     userId = calculatGUID()
     localStorage.setItem('userId', userId)
+    sendMsg('拼车小助手', `新增用户:${userId}`)
 }
 
 export default new Vuex.Store({

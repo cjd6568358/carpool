@@ -6,6 +6,7 @@ import * as components from './util/components'
 import openModal from './components/Modal/index'
 import Toast from './components/Toast/index'
 import './registerServiceWorker'
+import { sendMsg } from './util/index'
 
 Vue.config.productionTip = false
 Vue.prototype.$openModal = openModal
@@ -13,7 +14,16 @@ Vue.prototype.$Toast = Toast
 Object.keys(components).forEach(key => {
     Vue.component(key, components[key])
 })
-Date.prototype.Format = function(fmt) {
+
+Vue.directive('dc', {
+    inserted(el, binding) {
+        const data = binding.value;
+        el.addEventListener('click', () => {
+            sendMsg('拼车小助手', data)
+        }, false);
+    }
+})
+Date.prototype.Format = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1, //月份
         "d+": this.getDate(), //日
@@ -31,7 +41,7 @@ Date.prototype.Format = function(fmt) {
     return fmt;
 };
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')

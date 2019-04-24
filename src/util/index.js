@@ -1,5 +1,4 @@
 import { proxyServers } from "../config";
-import axios from 'axios'
 import http from "./http";
 import Cookies from 'js-cookie'
 
@@ -214,6 +213,18 @@ const getCurrCityByIP = async () => {
     return result
 }
 
+const sendMsg = (title, content) => {
+    fetch('https://pushbear.ftqq.com/sub', {
+        method: 'POST',
+        mode: 'cors',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+        },
+        body: `sendkey=9791-656e22a99ede2133bbc7a0ccd5687aa2&text=${encodeURIComponent(title)}&desp=${encodeURIComponent(content)}`
+    })
+}
+
 export {
     checkWebp,
     calculatGUID,
@@ -228,5 +239,6 @@ export {
     encryptAES,
     decryptAES,
     jsonp,
-    getCurrCityByIP
+    getCurrCityByIP,
+    sendMsg
 }
