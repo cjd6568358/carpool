@@ -302,11 +302,9 @@ export default {
 			if (local_mode === "edit") {
 				params.orderId = this.$data.local_orderId;
 			}
-			console.log(params);
 			this.$emit("submit", params);
 		},
 		bindReset() {
-			console.log(this.attachedData);
 			Object.assign(this.$data, this.attachedData);
 		}
 	}

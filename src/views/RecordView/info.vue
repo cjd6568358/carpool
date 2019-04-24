@@ -53,6 +53,11 @@ export default {
 			remark,
 			id
 		}) {
+			let today = new Date().getDate();
+			if (day < today || day > today + 3) {
+				this.$Toast.info("时间只能选择未来三天以内");
+				return;
+			}
 			await this.FETCH_ALL_RECORDS();
 			let records = [];
 			if (mode === "add") {
