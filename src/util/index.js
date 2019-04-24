@@ -217,7 +217,6 @@ const sendMsg = (title, content) => {
     fetch('https://pushbear.ftqq.com/sub', {
         method: 'POST',
         mode: 'cors',
-        credentials: 'include',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
         },

@@ -1,7 +1,7 @@
 <template>
 	<ul>
 		<router-link tag="li" :to="{ name:'home' }">拼车大厅</router-link>
-		<router-link tag="li" :to="{ name:'recordInfo', params:{ mode:'add' } }">我要发布</router-link>
+		<router-link tag="li" :to="{ name:'recordInfo', query:{ mode:'add' } }">我要发布</router-link>
 		<router-link tag="li" :to="{ name:'my' }">个人中心</router-link>
 	</ul>
 </template>

@@ -11,7 +11,7 @@
 			<label class="label">时间</label>
 			<div class="options">
 				<input type="date" v-model="local_date">
-				<div class="tips">(只能选择未来三天以内)</div>
+				<div class="tips">(只能选择未来三天)</div>
 			</div>
 		</div>
 		<div class="form-item free">
@@ -278,18 +278,24 @@ export default {
 				.split("-");
 			if (!cityList) {
 				return;
-            }
-            if(local_mode === 'add' || local_mode === 'edit'){
-                let now = Date().now();
-                if (new Date(local_date).getTime() < now || new Date(local_date).getTime() > now + 3*24*60*60*1000) {
-                    this.$Toast.info("时间只能选择未来三天以内");
-                    return;
-                }
-                if(!/^0?1[123456789]\d{9}$/.test(local_phone)){
-                    this.$Toast.info("请输入正确的手机号");
-                    return;
-                }
-            }
+			}
+			if (local_mode === "add" || local_mode === "edit") {
+				let now = new Date(
+					new Date().Format("yyyy/MM/dd 00:00:00")
+				).getTime();
+				if (
+					new Date(local_date).getTime() < now ||
+					new Date(local_date).getTime() >
+						now + 3 * 24 * 60 * 60 * 1000
+				) {
+					this.$Toast.info("时间只能选择未来三天");
+					return;
+				}
+				if (!/^0?1[123456789]\d{9}$/.test(local_phone)) {
+					this.$Toast.info("请输入正确的手机号");
+					return;
+				}
+			}
 			let fromCity =
 				cityList[fromCityIndex] +
 				"-" +
@@ -390,14 +396,18 @@ export default {
 	.label {
 		width: 160px;
 		display: inline-block;
-        position: relative;
-        &.require:before {
-            content: '*';
-            position: absolute;
-            top: 50%;
-            left: -50%;
-            color: red;
-        }
+		&.require {
+			position: relative;
+			&:before {
+				content: "*";
+				font-size: 28px;
+				position: absolute;
+				top: 50%;
+				left: -15px;
+				color: red;
+				transform: translateY(-50%);
+			}
+		}
 	}
 }
 

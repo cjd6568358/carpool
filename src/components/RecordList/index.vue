@@ -42,8 +42,8 @@ export default {
 		}
 	},
 	computed: {
-        ...mapState(["userId"]),
-    },
+		...mapState(["userId"])
+	},
 	methods: {
 		...mapActions(["FETCH_ALL_RECORDS", "UPDATE_ALL_RECORDS"]),
 		bindEdit(record) {
@@ -52,7 +52,7 @@ export default {
 		async bindDelete(record) {
 			if (confirm("是否确认删除?")) {
 				await this.FETCH_ALL_RECORDS();
-				records = this.$store.state.records.filter(
+				let records = this.$store.state.records.filter(
 					item => item.orderId !== record.orderId
 				);
 				await this.UPDATE_ALL_RECORDS(records);
@@ -73,8 +73,8 @@ export default {
 	background-color: #fff;
 	border-radius: 8px;
 	padding: 20px;
-    display: flex;
-    box-shadow: 1px 1px 16px 0 rgba(0, 0, 0, 0.4);
+	display: flex;
+	box-shadow: 1px 1px 16px 0 rgba(0, 0, 0, 0.4);
 	& + .record {
 		margin-top: 20px;
 	}

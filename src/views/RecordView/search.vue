@@ -1,9 +1,9 @@
 <template>
 	<div class="record-search-page">
-		<NavBar :leftBtns="['back']" title="快捷查询"></NavBar>
+		<NavBar :leftBtns="['back']" @backClick="backClick" title="快捷查询"></NavBar>
 		<div class="overflow-container">
 			<div class="search">
-				<input v-model="key" autofocus placeholder="请输入手机号查询">
+				<input v-model="key" autofocus placeholder="请输入手机号查询" @input="searchRecords">
 			</div>
 			<recordList :records="currRecords" :showContact="showContact" :showEdit="showEdit" :showDelete="showDelete" @reload="searchRecords" @editRecord="bindeditRecord"></recordList>
 			<publish class="publish" v-if="!currRecords.length"></publish>
@@ -31,7 +31,7 @@ export default {
 		...mapState(["records"]),
 		currRecords() {
 			return this.records.filter(item => {
-				item.phone.startsWith(this.$data.key);
+				return item.phone.startsWith(this.$data.key);
 			});
 		}
 	},
@@ -55,7 +55,6 @@ export default {
 			showEdit,
 			showDelete
 		});
-
 		this.FETCH_ALL_RECORDS();
 	},
 	methods: {
@@ -72,6 +71,9 @@ export default {
 			this.$router.push(
 				`/record/info?mode=edit&recordInfo=${JSON.stringify(info)}`
 			);
+		},
+		backClick() {
+			this.$router.replace("/home");
 		}
 	}
 };
