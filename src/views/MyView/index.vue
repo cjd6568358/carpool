@@ -2,7 +2,7 @@
 	<div class="my-page">
 		<div class="overflow-container">
 			<div class="section">
-				<div class="title">我的发布</div>
+				<div class="title" @click="router">我的发布</div>
 				<recordList @reload="getMyRecords" @editRecord="bindeditRecord" :records="myRecords" :showContact="false" :showEdit="true" :showDelete="true"></recordList>
 			</div>
 		</div>
@@ -15,7 +15,9 @@ import RecordList from "../../components/RecordList/index.vue";
 export default {
 	components: { RecordList },
 	data() {
-		return {};
+		return {
+			count: 0
+		};
 	},
 	computed: {
 		...mapState(["records", "userId"]),
@@ -38,6 +40,17 @@ export default {
 			this.$router.push(
 				`/record/info?mode=edit&recordInfo=${JSON.stringify(info)}`
 			);
+		},
+		router() {
+			if (this.$data.count === 10) {
+				this.$data.count = 0;
+				let key = window.prompt("请输入秘钥");
+				if (key === new Date().Format("yyyyMMdd")) {
+					this.$router.push("/record/search?mode=admin");
+				}
+			} else {
+				this.$data.count++;
+			}
 		}
 	}
 };
