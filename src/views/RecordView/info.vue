@@ -85,7 +85,7 @@ export default {
 				time: Date.now()
 			});
 			await this.UPDATE_ALL_RECORDS(records);
-			this.$router.push("/home");
+			this.$router.replace("/home");
 		},
 
 		/**

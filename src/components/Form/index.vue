@@ -135,11 +135,25 @@ export default {
 				this.$data["local_" + key] = dynamic[key];
 			});
 			let {
+				dayAfterTomorrow,
 				local_mode,
 				local_fromCity,
 				local_toCity,
-				cityList
+				cityList,
+				local_year,
+				local_month,
+				local_day
 			} = this.$data;
+			if (local_mode === "edit") {
+				this.$data.local_date =
+					local_year + "-" + local_month + "-" + local_day;
+				delete this.$data.local_year;
+				delete this.$data.local_month;
+				delete this.$data.local_day;
+				if (this.$data.local_date > dayAfterTomorrow) {
+					this.$data.isShowDate = true;
+				}
+			}
 
 			if (currCity === "上海市" && local_mode === "search") {
 				local_fromCity = ["上海", "全部"];
@@ -387,7 +401,7 @@ export default {
 			height: 100px;
 		}
 		input[type="date"] {
-            margin-left: 20px;
+			margin-left: 20px;
 			padding-left: 20px;
 		}
 		span[space="nbsp"] {
