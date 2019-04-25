@@ -1,8 +1,9 @@
 <template>
 	<div class="my-page">
+		<NavBar :rightBtns="['search']" @searchClick="router" title="我的发布"></NavBar>
 		<div class="overflow-container">
 			<div class="section">
-				<div class="title" @click="router">我的发布</div>
+				<!-- <div class="title" @click="router">我的发布</div> -->
 				<recordList @reload="getMyRecords" @editRecord="bindeditRecord" :records="myRecords" :showContact="false" :showEdit="true" :showDelete="true"></recordList>
 			</div>
 		</div>
@@ -42,7 +43,10 @@ export default {
 			);
 		},
 		router() {
-			if (this.$data.count === 10) {
+			if (this.timer) {
+				clearTimeout(this.timer);
+			}
+			if (this.$data.count === 5) {
 				this.$data.count = 0;
 				let key = window.prompt("请输入秘钥");
 				if (key === new Date().Format("yyyyMMdd")) {
@@ -50,6 +54,9 @@ export default {
 				}
 			} else {
 				this.$data.count++;
+				this.timer = setTimeout(() => {
+					this.$data.count = 0;
+				}, 60000);
 			}
 		}
 	}
@@ -57,12 +64,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 .my-page {
-	.section .title {
-		padding: 10px 20px;
-		font-size: 32px;
-		font-weight: 600;
-		color: #3d3d3d;
-		text-align: center;
+	.section {
+		margin-top: 20px;
+		.title {
+			padding: 10px 20px;
+			font-size: 32px;
+			font-weight: 600;
+			color: #3d3d3d;
+			text-align: center;
+		}
 	}
 }
 </style>

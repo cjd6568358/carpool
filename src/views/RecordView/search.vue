@@ -3,7 +3,7 @@
 		<NavBar :leftBtns="['back']" @backClick="backClick" title="快捷查询"></NavBar>
 		<div class="overflow-container">
 			<div class="search">
-				<input v-model="key" autofocus placeholder="请输入手机号查询" @input="searchRecords">
+				<input type="tel" v-model="key" autofocus placeholder="请输入手机号查询" @input="searchRecords">
 			</div>
 			<recordList :records="currRecords" :showContact="showContact" :showEdit="showEdit" :showDelete="showDelete" @reload="searchRecords" @editRecord="bindeditRecord"></recordList>
 			<publish class="publish" v-if="!currRecords.length"></publish>
