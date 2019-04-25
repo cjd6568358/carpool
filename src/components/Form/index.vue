@@ -387,6 +387,7 @@ export default {
 			height: 100px;
 		}
 		input[type="date"] {
+            margin-left: 20px;
 			padding-left: 20px;
 		}
 		span[space="nbsp"] {
