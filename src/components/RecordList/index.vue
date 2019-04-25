@@ -74,6 +74,9 @@ export default {
 	border-radius: 8px;
 	padding: 20px;
 	display: flex;
+	&.empty {
+		box-shadow: none;
+	}
 	box-shadow: 1px 1px 16px 0 rgba(0, 0, 0, 0.4);
 	& + .record {
 		margin-top: 20px;

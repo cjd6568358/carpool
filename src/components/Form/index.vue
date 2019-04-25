@@ -3,25 +3,28 @@
 		<div class="form-item type">
 			<label class="label">我想要</label>
 			<div class="options">
-				<div class="item" :class="{ active:local_type === 1 }" :data-local_type="1" @click="bindClick">找车</div>
-				<div class="item" :class="{ active:local_type === 2 }" :data-local_type="2" @click="bindClick">找人</div>
+				<div class="item" :class="{ active:local_type === 1 }" @click="local_type = 1">找车</div>
+				<div class="item" :class="{ active:local_type === 2 }" @click="local_type = 2">找人</div>
 			</div>
 		</div>
 		<div class="form-item date">
 			<label class="label">时间</label>
 			<div class="options">
-				<input type="date" v-model="local_date">
-				<div class="tips">(只能选择未来三天)</div>
+				<div class="item" v-if="!isShowDate" :class="{ active:local_date === today }" @click="local_date = today">今天</div>
+				<div class="item" v-if="!isShowDate" :class="{ active:local_date === tomorrow }" @click="local_date = tomorrow">明天</div>
+				<div class="item" v-if="!isShowDate" :class="{ active:local_date === dayAfterTomorrow }" @click="local_date = dayAfterTomorrow">后天</div>
+				<div class="item" :class="{ active:isShowDate }" @click="isShowDate = !isShowDate">自选</div>
+				<input v-if="isShowDate" :min="today" type="date" v-model="local_date">
 			</div>
 		</div>
 		<div class="form-item free">
 			<label class="label">空座</label>
 			<div class="options">
-				<div v-if="local_mode === 'search'" class="item" :class="{ active:local_free === -1 }" :data-local_free="-1" @click="bindClick">不限</div>
-				<div class="item" :class="{ active:local_free === 1 }" :data-local_free="1" @click="bindClick">1</div>
-				<div class="item" :class="{ active:local_free === 2 }" :data-local_free="2" @click="bindClick">2</div>
-				<div class="item" :class="{ active:local_free === 3 }" :data-local_free="3" @click="bindClick">3</div>
-				<div class="item" :class="{ active:local_free === 4 }" :data-local_free="4" @click="bindClick">4</div>
+				<div v-if="local_mode === 'search'" class="item" :class="{ active:local_free === -1 }" @click="local_free = -1">不限</div>
+				<div class="item" :class="{ active:local_free === 1 }" @click="local_free = 1">1</div>
+				<div class="item" :class="{ active:local_free === 2 }" @click="local_free = 2">2</div>
+				<div class="item" :class="{ active:local_free === 3 }" @click="local_free = 3">3</div>
+				<div class="item" :class="{ active:local_free === 4 }" @click="local_free = 4">4</div>
 			</div>
 		</div>
 		<div class="form-item fromCity">
@@ -87,10 +90,19 @@ export default {
 		}
 	},
 	data() {
+		let now = Date.now();
+		let today = new Date(now).Format("yyyy-MM-dd");
+		let tomorrow = new Date(now + 1 * 24 * 60 * 60 * 1000).Format(
+			"yyyy-MM-dd"
+		);
+		let dayAfterTomorrow = new Date(now + 2 * 24 * 60 * 60 * 1000).Format(
+			"yyyy-MM-dd"
+		);
+		let local_date = today;
 		return {
 			local_mode: "add", // 属性初始值（可选），如果未指定则会根据类型选择一个['search','add','view','edit'],
 			local_type: 1,
-			local_date: new Date().Format("yyyy-MM-dd"),
+			local_date,
 			local_fromCity: ["建湖", "全部"],
 			local_toCity: ["上海", "全部"],
 			local_free: 1,
@@ -98,6 +110,10 @@ export default {
 			local_phone: "",
 			local_name: "",
 			local_remark: "",
+			isShowDate: false,
+			today,
+			tomorrow,
+			dayAfterTomorrow,
 			cityList: Object.keys(cityArea),
 			fromCityIndex: 0,
 			fromCityAreaIndex: 0,
@@ -161,13 +177,6 @@ export default {
 		});
 	},
 	methods: {
-		bindClick({ target: { dataset } }) {
-			Object.keys(dataset).forEach(key => {
-				if (this.$data.hasOwnProperty(key)) {
-					this.$data[key] = +dataset[key];
-				}
-			});
-		},
 		selectCityIndex(index, type) {
 			let selectedIndex = [index];
 			let pickerData = this.$data.cityList.map((city, i) => {
@@ -280,17 +289,6 @@ export default {
 				return;
 			}
 			if (local_mode === "add" || local_mode === "edit") {
-				let now = new Date(
-					new Date().Format("yyyy/MM/dd 00:00:00")
-				).getTime();
-				if (
-					new Date(local_date).getTime() < now ||
-					new Date(local_date).getTime() >
-						now + 3 * 24 * 60 * 60 * 1000
-				) {
-					this.$Toast.info("时间只能选择未来三天");
-					return;
-				}
 				if (!/^0?1[123456789]\d{9}$/.test(local_phone)) {
 					this.$Toast.info("请输入正确的手机号");
 					return;
@@ -346,6 +344,7 @@ export default {
 	&:not(:first-child) {
 		margin-top: 10px;
 	}
+	&.date .options .item,
 	&.type .options .item,
 	&.free .options .item {
 		display: block;
@@ -354,12 +353,12 @@ export default {
 		border: 1px solid #dcdfe6;
 		border-left: 0;
 		min-width: 100px;
-		&:first-child {
+		&:first-of-type {
 			border-top-left-radius: 10px;
 			border-bottom-left-radius: 10px;
 			border-left: 1px solid #dcdfe6;
 		}
-		&:last-child {
+		&:last-of-type {
 			border-top-right-radius: 10px;
 			border-bottom-right-radius: 10px;
 		}
@@ -377,6 +376,7 @@ export default {
 	.options {
 		display: inline-flex;
 		flex: 1;
+		flex-wrap: wrap;
 		.tips {
 			font-size: 20px;
 			color: #a3a3a3;
@@ -387,7 +387,7 @@ export default {
 			height: 100px;
 		}
 		input[type="date"] {
-			// flex: 1;
+			padding-left: 20px;
 		}
 		span[space="nbsp"] {
 			margin: 0 20px;
