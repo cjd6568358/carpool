@@ -1,6 +1,7 @@
 {
   "name": "建湖拼车小助手",
   "short_name": "建湖拼车",
+  "orientation": "portrait-primary",
   "icons": [
     {
       "src": "./img/logo.png",
@@ -8,8 +9,12 @@
       "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "./home",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#4DBA87"
+  "background_color": "transparent",
+    "theme_color": "#4DBA87",
+    "related_applications": [{
+        "platform": "web",
+        "url": "https://cjd6568358.coding.me/carpool"
+    }]
 }
