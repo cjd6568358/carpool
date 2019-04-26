@@ -46,10 +46,10 @@ export default {
 					free <= item.free &&
 					(item.fromCity === fromCity ||
 						(item.fromCity.startsWith(fromCityArr[0]) &&
-							fromCityArr[1] === "全部")) &&
+							fromCityArr[1] === "不限")) &&
 					(item.toCity === toCity ||
 						(item.toCity.startsWith(toCityArr[0]) &&
-							toCityArr[1] === "全部"))
+							toCityArr[1] === "不限"))
 				) {
 					return true;
 				} else {

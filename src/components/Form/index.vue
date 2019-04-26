@@ -103,8 +103,8 @@ export default {
 			local_mode: "add", // 属性初始值（可选），如果未指定则会根据类型选择一个['search','add','view','edit'],
 			local_type: 1,
 			local_date,
-			local_fromCity: ["建湖", "县城"],
-			local_toCity: ["上海", "市区"],
+			local_fromCity: ["建湖", "不限"],
+			local_toCity: ["上海", "不限"],
 			local_free: 1,
 			local_fee: 100,
 			local_phone: "",
@@ -156,8 +156,8 @@ export default {
 			}
 
 			if (currCity === "上海市" && local_mode === "search") {
-				local_fromCity = ["上海", "市区"];
-				local_toCity = ["建湖", "县城"];
+				local_fromCity = ["上海", "不限"];
+				local_toCity = ["建湖", "不限"];
 			}
 			let fromCityIndex = cityList.findIndex(
 				item => item === local_fromCity[0]
