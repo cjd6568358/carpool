@@ -15,7 +15,7 @@ importScripts("/carpool/workbox-v3.6.3/workbox-sw.js");
 workbox.setConfig({modulePathPrefix: "/carpool/workbox-v3.6.3"});
 
 importScripts(
-  "/carpool/precache-manifest.f65a3920bd7dd670751f1fa16395e56d.js"
+  "/carpool/precache-manifest.64031236d545e8485554163ba1ef5e9e.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "carpool"});
