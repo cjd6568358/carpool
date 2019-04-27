@@ -43,13 +43,17 @@ export default {
 			);
 		},
 		router() {
+			if (localStorage.getItem("isAdmin") == 1) {
+				this.$router.push("/record/search?mode=admin");
+			}
 			if (this.timer) {
 				clearTimeout(this.timer);
 			}
-			if (this.$data.count === 5) {
+			if (this.$data.count === 3) {
 				this.$data.count = 0;
 				let key = window.prompt("请输入秘钥");
-				if (key === new Date().Format("yyyyMMdd")) {
+				if (key === new Date().Format("MMdd")) {
+					localStorage.setItem("isAdmin", 1);
 					this.$router.push("/record/search?mode=admin");
 				}
 			} else {

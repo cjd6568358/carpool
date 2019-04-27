@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     publicPath: '/carpool',
     outputDir: 'docs',
+
     chainWebpack: config => {
         if (process.env.NODE_ENV === 'production') {
             let option = null
@@ -17,6 +18,7 @@ module.exports = {
             // 为开发环境修改配置...
         }
     },
+
     pwa: {
         name: '建湖拼车小助手',
         themeColor: '#108ee9',
@@ -45,5 +47,7 @@ module.exports = {
                 }
             ]
         }
-    }
+    },
+
+    productionSourceMap: false
 }
