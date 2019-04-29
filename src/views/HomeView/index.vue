@@ -5,7 +5,7 @@
 			<Form :dynamic="{ mode:'search' }" @submit="onSearch"></Form>
 			<RecordList :records="currRecords"></RecordList>
 		</div>
-        <TabBar></TabBar>
+		<TabBar></TabBar>
 	</div>
 </template>
 <script>
@@ -32,12 +32,13 @@ export default {
 				day,
 				free
 			} = this.searchParams;
+			let tmpArr = [];
 			if (!fromCity) {
-				return [];
+				return tmpArr;
 			}
 			let fromCityArr = fromCity.split("-");
 			let toCityArr = toCity.split("-");
-			return this.records.filter(item => {
+			tmpArr = this.records.filter(item => {
 				if (
 					item.type !== type &&
 					item.year === year &&
@@ -56,6 +57,10 @@ export default {
 					return false;
 				}
 			});
+			tmpArr.sort((a, b) => {
+				return b.time - a.time;
+			});
+			return tmpArr;
 		}
 	},
 	mounted() {},
@@ -95,10 +100,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home-page {
-	.publish {
-		position: fixed;
-		right: 50px;
-		top: 20px;
+	.overflow-container {
+		padding-bottom: 20px;
 	}
 }
 </style>

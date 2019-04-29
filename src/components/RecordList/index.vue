@@ -2,8 +2,9 @@
 	<div class="records">
 		<div class="record" v-for="(item,index) of records" :key="index">
 			<div class="detail">
+				<div class="update-time">更新时间 : {{item.updateTime}}</div>
 				<div class="from-to">
-                    <span class="date">{{item.month + item.day}}</span>
+					<span class="date">{{item.month + item.day}}</span>
 					<template v-if="showEdit">[{{item.type === 1 ? '人找车':'车找人'}}]</template>
 					{{item.fromCity}} → {{item.toCity}}
 				</div>
@@ -94,6 +95,10 @@ export default {
 	display: flex;
 	flex-wrap: wrap;
 	flex: 1;
+}
+
+.update-time {
+	color: #04be02;
 }
 
 .name,

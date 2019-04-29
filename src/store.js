@@ -37,6 +37,11 @@ export default new Vuex.Store({
                     return true
                 }
             })
+            records.forEach(item => {
+                item.name = item.name.substr(0, 5)
+                item.remark = item.remark.trim()
+                item.updateTime = new Date(item.time).Format('MM-dd hh:mm:ss')
+            })
             commit('SET_ALL_RECORDS', records)
         },
         async UPDATE_ALL_RECORDS({ commit, dispatch, state, getters }, records) {
