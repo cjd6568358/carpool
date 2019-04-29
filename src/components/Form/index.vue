@@ -155,7 +155,7 @@ export default {
 				}
 			}
 
-			if (currCity === "上海市" && local_mode === "search") {
+			if (currCity === "上海市") {
 				local_fromCity = ["上海", "不限"];
 				local_toCity = ["建湖", "不限"];
 			}
