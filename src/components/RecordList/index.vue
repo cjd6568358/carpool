@@ -1,6 +1,6 @@
 <template>
-	<div class="records">
-		<div class="record" v-for="(item,index) of records" :key="index">
+	<ul class="records">
+		<li class="record" v-for="(item,index) of records" :key="index">
 			<div class="detail">
 				<div class="update-time">更新时间 : {{item.updateTime}}</div>
 				<div class="from-to">
@@ -18,9 +18,9 @@
 				<button class="edit-btn btn" v-if="showEdit" @click="bindEdit(item)" type="default" size="mini">编辑</button>
 				<button class="delete-btn btn" v-if="showDelete" @click="bindDelete(item)" type="warn" size="mini">删除</button>
 			</div>
-		</div>
-		<div v-if="!records.length" class="record empty">暂无数据</div>
-	</div>
+		</li>
+		<li v-if="!records.length" class="record empty">暂无数据</li>
+	</ul>
 </template>
 <script>
 import { mapState, mapActions } from "vuex";
@@ -68,6 +68,7 @@ export default {
 <style lang="scss" scoped>
 .records {
 	margin: 0 20px;
+    padding: 0 20px;
 	font-size: 28px;
 }
 

@@ -100,8 +100,5 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home-page {
-	.overflow-container {
-		padding-bottom: 20px;
-	}
 }
 </style>
