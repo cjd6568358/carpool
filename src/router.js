@@ -9,6 +9,8 @@ const RecordInfoView = () =>
     import( /* webpackChunkName: "RecordInfoView" */ './views/RecordView/info.vue')
 const RecordSearchView = () =>
     import( /* webpackChunkName: "RecordSearchView" */ './views/RecordView/search.vue')
+const BlackListView = () =>
+    import( /* webpackChunkName: "BlackListView" */ './views/BlackListView/index.vue')
 
 Vue.use(Router)
 
@@ -35,6 +37,11 @@ export default new Router({
             path: '/record/search',
             name: 'recordSearch',
             component: RecordSearchView
+        },
+        {
+            path: '/blacklist',
+            name: 'blacklist',
+            component: BlackListView
         },
         {
             path: '*',

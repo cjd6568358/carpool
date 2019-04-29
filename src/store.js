@@ -12,15 +12,22 @@ if (!userId) {
     sendMsg('拼车小助手', `新增用户:${userId}`)
 }
 
+let isAdmin = localStorage.getItem("isAdmin") == 1
+
 export default new Vuex.Store({
     state: {
         userInfo: null,
         userId,
-        records: []
+        isAdmin,
+        records: [],
+        blackList: []
     },
     mutations: {
         SET_ALL_RECORDS: (state, records) => {
             state.records = records
+        },
+        SET_BLACKLIST: (state, blackList) => {
+            state.blackList = blackList
         },
     },
     actions: {
@@ -47,6 +54,18 @@ export default new Vuex.Store({
         async UPDATE_ALL_RECORDS({ commit, dispatch, state, getters }, records) {
             await setStorageSync('carpool', records)
             commit('SET_ALL_RECORDS', records)
-        }
+        },
+        async FETCH_BLACKLIST({ commit, dispatch, state, getters }) {
+            let blackList = await getStorageSync('carpool_blackList')
+            if (!blackList) {
+                blackList = []
+            }
+            commit('SET_BLACKLIST', blackList)
+            return blackList
+        },
+        async UPDATE_BLACKLIST({ commit, dispatch, state, getters }, blackList) {
+            await setStorageSync('carpool_blackList', blackList)
+            commit('SET_BLACKLIST', blackList)
+        },
     }
 })

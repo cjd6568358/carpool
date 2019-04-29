@@ -1,5 +1,6 @@
 <script>
 import BackIcon from '../BackIcon/index.vue';
+import BlackListIcon from '../BlackListIcon/index.vue';
 import SearchIcon from '../SearchIcon/index.vue';
 export default {
     name: 'NavBar',
@@ -9,7 +10,8 @@ export default {
         return {
             components: {
                 back: <BackIcon class="nav-btn" on-backClick={this.backClick} />,
-                search: <SearchIcon class="nav-btn" on-searchClick={this.searchClick} />
+                search: <SearchIcon class="nav-btn" on-searchClick={this.searchClick} />,
+                blacklist: <BlackListIcon class="nav-btn" on-blacklistClick={this.blacklistClick} />
             }
         };
     },
@@ -52,6 +54,13 @@ export default {
             if (this.$listeners.searchClick) {
                 this.$emit('searchClick', e);
             } else {
+            }
+        },
+        blacklistClick(){
+            if (this.$listeners.blacklistClick) {
+                this.$emit('blacklistClick', e);
+            } else {
+                this.$router.push('/blacklist')
             }
         }
     }

@@ -1,6 +1,6 @@
 <template>
 	<div class="my-page">
-		<NavBar :rightBtns="['search']" @searchClick="router" title="我的发布"></NavBar>
+		<NavBar :rightBtns="rightBtns" @searchClick="router" title="我的发布"></NavBar>
 		<div class="overflow-container">
 			<div class="section">
 				<!-- <div class="title" @click="router">我的发布</div> -->
@@ -17,11 +17,12 @@ export default {
 	components: { RecordList },
 	data() {
 		return {
-			count: 0
+			count: 0,
+			rightBtns: ["search"]
 		};
 	},
 	computed: {
-		...mapState(["records", "userId"]),
+		...mapState(["records", "userId", "isAdmin"]),
 		myRecords() {
 			return this.records.filter(item => {
 				return item.userId === this.userId;
@@ -29,6 +30,9 @@ export default {
 		}
 	},
 	mounted() {
+		if (this.isAdmin) {
+			this.rightBtns.push("blacklist");
+		}
 		this.FETCH_ALL_RECORDS();
 	},
 	methods: {
@@ -43,8 +47,9 @@ export default {
 			);
 		},
 		router() {
-			if (localStorage.getItem("isAdmin") == 1) {
-				this.$router.push("/record/search?mode=admin");
+			if (this.isAdmin) {
+                this.$router.push("/record/search?mode=admin");
+                return
 			}
 			if (this.timer) {
 				clearTimeout(this.timer);
@@ -54,6 +59,7 @@ export default {
 				let key = window.prompt("请输入秘钥");
 				if (key === new Date().Format("MMdd")) {
 					localStorage.setItem("isAdmin", 1);
+					this.$store.state.isAdmin = true;
 					this.$router.push("/record/search?mode=admin");
 				}
 			} else {

@@ -19,7 +19,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(["records", "userId"])
+		...mapState(["records", "userId", "blackList"])
 	},
 	mounted() {
 		let { mode, recordInfo: dynamic = {} } = this.$route.query;
@@ -35,9 +35,14 @@ export default {
 		}
 		dynamic.mode = mode;
 		this.$data.dynamic = dynamic;
+		this.FETCH_BLACKLIST();
 	},
 	methods: {
-		...mapActions(["FETCH_ALL_RECORDS", "UPDATE_ALL_RECORDS"]),
+		...mapActions([
+			"FETCH_ALL_RECORDS",
+			"UPDATE_ALL_RECORDS",
+			"FETCH_BLACKLIST"
+		]),
 		async onSubmit({
 			mode,
 			type,
@@ -53,6 +58,10 @@ export default {
 			remark,
 			orderId
 		}) {
+			if (this.blackList.includes(phone)) {
+                alert("该用户已被禁止访问");
+				return;
+			}
 			await this.FETCH_ALL_RECORDS();
 			let records = [];
 			if (mode === "add") {

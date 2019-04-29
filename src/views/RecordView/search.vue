@@ -7,6 +7,12 @@
 			</div>
 			<recordList :records="currRecords" :showContact="showContact" :showEdit="showEdit" :showDelete="showDelete" @reload="searchRecords" @editRecord="bindeditRecord"></recordList>
 			<publish class="publish" v-if="!currRecords.length"></publish>
+			<center v-if="isAdmin">黑名单</center>
+			<ul v-if="isAdmin" class="blacklist">
+				<li v-for="item in blackList" :key="item">
+					<span>{{item}}</span>
+				</li>
+			</ul>
 		</div>
 	</div>
 </template>
@@ -28,7 +34,7 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(["records"]),
+		...mapState(["records", "isAdmin", "blackList"]),
 		currRecords() {
 			return this.records.filter(item => {
 				return item.phone.startsWith(this.$data.key);
@@ -103,6 +109,21 @@ export default {
 
 	.publish {
 		margin: 20px auto;
+	}
+
+	.blacklist {
+		padding: 20px;
+		li {
+			background-color: #fff;
+			margin-bottom: 20px;
+			display: flex;
+			span {
+				padding-left: 20px;
+				height: 64px;
+				line-height: 64px;
+				flex: 1;
+			}
+		}
 	}
 }
 </style>
