@@ -68,7 +68,7 @@ export default {
 <style lang="scss" scoped>
 .records {
 	margin: 0 20px;
-    padding: 0 20px;
+    padding: 20px 0;
 	font-size: 28px;
 }
 
