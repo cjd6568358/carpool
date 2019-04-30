@@ -18,8 +18,8 @@ export default {
 
 <style lang="scss">
 .icon-blacklist-btn {
-    width: 60px;
-    height: 60px;
+    width: 48px;
+    height: 48px;
     fill: currentColor;
     transform: rotate(180deg);
 }
