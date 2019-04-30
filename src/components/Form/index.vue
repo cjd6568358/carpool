@@ -145,7 +145,7 @@ export default {
 				local_day
 			} = this.$data;
 
-			let local_cityArea = Object.assign({}, cityArea);
+			let local_cityArea = JSON.parse(JSON.stringify(cityArea));
 			if (local_mode === "search") {
 				local_fromCity.push("不限");
 				local_toCity.push("不限");
@@ -164,15 +164,17 @@ export default {
 			}
 
 			if (local_mode === "edit") {
-				this.$data.local_date =
-					local_year + "-" + local_month + "-" + local_day;
+				this.$data.local_date = [
+					local_year,
+					local_month,
+					local_day
+				].join("-");
 				delete this.$data.local_year;
 				delete this.$data.local_month;
 				delete this.$data.local_day;
 				if (this.$data.local_date > dayAfterTomorrow) {
 					this.$data.isShowDate = true;
 				}
-				local_fromCity.push("");
 			}
 
 			let fromCityIndex = cityList.findIndex(
