@@ -5,16 +5,16 @@
 				<div class="update-time">更新时间 : {{item.updateTime}}</div>
 				<div class="from-to">
 					<span class="date">{{item.month + item.day}}</span>
-					<template v-if="showEdit">[{{item.type === 1 ? '人找车':'车找人'}}]</template>
+					<template v-if="showEdit">[{{item.orderType === 1 ? '人找车':'车找人'}}]</template>
 					{{item.fromCity}} → {{item.toCity}}
 				</div>
-				<div class="name">{{item.type === 1 ? '乘客':'车主'}} : {{item.name}}</div>
+				<div class="name">{{item.orderType === 1 ? '乘客':'车主'}} : {{item.name}}</div>
 				<div class="free">空座 : {{item.free}}</div>
 				<div class="fee">费用 : {{item.fee}}</div>
 				<div class="remark">{{item.remark}}</div>
 			</div>
 			<div class="action">
-				<a class="contact-btn btn" v-if="showContact" :href="'tel:' + item.phone" size="mini" v-dc="`用户:${userId} 联系了${item.type === 1 ? '乘客':'车主'}${item.phone}`">联系我</a>
+				<a class="contact-btn btn" v-if="showContact" :href="'tel:' + item.phone" size="mini" v-dc="`用户:${userId} 联系了${item.orderType === 1 ? '乘客':'车主'}${item.phone}`">联系我</a>
 				<button class="edit-btn btn" v-if="showEdit" @click="bindEdit(item)" type="default" size="mini">编辑</button>
 				<button class="delete-btn btn" v-if="showDelete" @click="bindDelete(item)" type="warn" size="mini">删除</button>
 			</div>

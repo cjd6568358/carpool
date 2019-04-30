@@ -1,10 +1,10 @@
 <template>
 	<div class="form-area">
-		<div class="form-item type">
+		<div class="form-item orderType">
 			<label class="label">我想要</label>
 			<div class="options">
-				<div class="item" :class="{ active:local_type === 1 }" @click="local_type = 1">找车</div>
-				<div class="item" :class="{ active:local_type === 2 }" @click="local_type = 2">找人</div>
+				<div class="item" :class="{ active:local_orderType === 1 }" @click="local_orderType = 1">找车</div>
+				<div class="item" :class="{ active:local_orderType === 2 }" @click="local_orderType = 2">找人</div>
 			</div>
 		</div>
 		<div class="form-item date">
@@ -101,7 +101,7 @@ export default {
 		let local_date = today;
 		return {
 			local_mode: "add", // 属性初始值（可选），如果未指定则会根据类型选择一个['search','add','view','edit'],
-			local_type: 1,
+			local_orderType: 1,
 			local_date,
 			local_fromCity: ["建湖"],
 			local_toCity: ["上海"],
@@ -298,7 +298,7 @@ export default {
 			let {
 				local_mode,
 				cityList,
-				local_type,
+				local_orderType,
 				local_phone,
 				local_name,
 				local_free,
@@ -332,7 +332,7 @@ export default {
 				cityList[toCityIndex] + "-" + toCityAreaList[toCityAreaIndex];
 			let params = {
 				mode: local_mode,
-				type: local_type,
+				orderType: local_orderType,
 				phone: local_phone,
 				name: local_name,
 				free: local_free,
@@ -375,7 +375,7 @@ export default {
 		margin-top: 10px;
 	}
 	&.date .options .item,
-	&.type .options .item,
+	&.orderType .options .item,
 	&.free .options .item {
 		display: block;
 		padding: 5px 20px;

@@ -26,7 +26,7 @@ export default {
 			let {
 				fromCity,
 				toCity,
-				type,
+				orderType,
 				year,
 				month,
 				day,
@@ -40,7 +40,7 @@ export default {
 			let toCityArr = toCity.split("-");
 			tmpArr = this.records.filter(item => {
 				if (
-					item.type !== type &&
+					item.orderType !== orderType &&
 					item.year === year &&
 					item.month === month &&
 					item.day === day &&
@@ -68,7 +68,7 @@ export default {
 		...mapActions(["FETCH_ALL_RECORDS"]),
 		onSearch({
 			mode,
-			type,
+			orderType,
 			fromCity,
 			toCity,
 			phone,
@@ -81,7 +81,7 @@ export default {
 		}) {
 			this.$data.searchParams = {
 				mode,
-				type,
+				orderType,
 				fromCity,
 				toCity,
 				phone,

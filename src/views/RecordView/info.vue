@@ -45,7 +45,7 @@ export default {
 		]),
 		async onSubmit({
 			mode,
-			type,
+			orderType,
 			fromCity,
 			toCity,
 			phone,
@@ -78,7 +78,7 @@ export default {
 				);
 			}
 			records.push({
-				type,
+				orderType,
 				fromCity,
 				toCity,
 				phone,
