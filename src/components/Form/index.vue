@@ -103,8 +103,8 @@ export default {
 			local_mode: "add", // 属性初始值（可选），如果未指定则会根据类型选择一个['search','add','view','edit'],
 			local_type: 1,
 			local_date,
-			local_fromCity: ["建湖", "不限"],
-			local_toCity: ["上海", "不限"],
+			local_fromCity: ["建湖"],
+			local_toCity: ["上海"],
 			local_free: 1,
 			local_fee: 100,
 			local_phone: "",
@@ -144,6 +144,25 @@ export default {
 				local_month,
 				local_day
 			} = this.$data;
+
+			let local_cityArea = Object.assign({}, cityArea);
+			if (local_mode === "search") {
+				local_fromCity.push("不限");
+				local_toCity.push("不限");
+				local_cityArea["上海"].unshift("不限");
+				local_cityArea["建湖"].unshift("不限");
+			} else if (local_mode === "edit" || local_mode === "add") {
+				if (currCity === "上海市") {
+					local_fromCity[0] = "上海";
+					local_toCity[0] = "建湖";
+					local_fromCity.push("市区");
+					local_toCity.push("县城");
+				} else {
+					local_fromCity.push("县城");
+					local_toCity.push("市区");
+				}
+			}
+
 			if (local_mode === "edit") {
 				this.$data.local_date =
 					local_year + "-" + local_month + "-" + local_day;
@@ -153,29 +172,26 @@ export default {
 				if (this.$data.local_date > dayAfterTomorrow) {
 					this.$data.isShowDate = true;
 				}
+				local_fromCity.push("");
 			}
 
-			if (currCity === "上海市") {
-				local_fromCity = ["上海", "不限"];
-				local_toCity = ["建湖", "不限"];
-			}
 			let fromCityIndex = cityList.findIndex(
 				item => item === local_fromCity[0]
 			);
-			let fromCityAreaIndex = cityArea[local_fromCity[0]].findIndex(
+			let fromCityAreaIndex = local_cityArea[local_fromCity[0]].findIndex(
 				item => item === local_fromCity[1]
 			);
 			let toCityIndex = cityList.findIndex(
 				item => item === local_toCity[0]
 			);
-			let toCityAreaIndex = cityArea[local_toCity[0]].findIndex(
+			let toCityAreaIndex = local_cityArea[local_toCity[0]].findIndex(
 				item => item === local_toCity[1]
 			);
 
-			let fromCityAreaList = cityArea[cityList[fromCityIndex]];
-			let toCityAreaList = cityArea[cityList[toCityIndex]];
+			let fromCityAreaList = local_cityArea[cityList[fromCityIndex]];
+			let toCityAreaList = local_cityArea[cityList[toCityIndex]];
 			Object.assign(this.$data, {
-				cityArea,
+				local_cityArea,
 				cityList,
 				local_fromCity,
 				fromCityIndex,
