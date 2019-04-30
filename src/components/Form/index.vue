@@ -146,21 +146,22 @@ export default {
 			} = this.$data;
 
 			let local_cityArea = JSON.parse(JSON.stringify(cityArea));
+			if (currCity === "上海市") {
+				local_fromCity[0] = "上海";
+				local_toCity[0] = "建湖";
+				local_fromCity.push("市区");
+				local_toCity.push("县城");
+			} else {
+				local_fromCity[0] = "建湖";
+				local_toCity[0] = "上海";
+				local_fromCity.push("县城");
+				local_toCity.push("市区");
+			}
 			if (local_mode === "search") {
-				local_fromCity.push("不限");
-				local_toCity.push("不限");
+				local_fromCity[1] = "不限";
+				local_toCity[1] = "不限";
 				local_cityArea["上海"].unshift("不限");
 				local_cityArea["建湖"].unshift("不限");
-			} else if (local_mode === "edit" || local_mode === "add") {
-				if (currCity === "上海市") {
-					local_fromCity[0] = "上海";
-					local_toCity[0] = "建湖";
-					local_fromCity.push("市区");
-					local_toCity.push("县城");
-				} else {
-					local_fromCity.push("县城");
-					local_toCity.push("市区");
-				}
 			}
 
 			if (local_mode === "edit") {
