@@ -36,6 +36,13 @@ export default new Vuex.Store({
             if (!records) {
                 records = []
             }
+            try {
+                if (typeof records === 'string') {
+                    records = JSON.parse(decodeURIComponent(window.atob(records)))
+                }
+            } catch (error) {
+
+            }
             records = records.filter(({ year, month, day }) => {
                 // 过滤所有过期数据
                 if (new Date(`${year}-${month}-${day}`).getTime() + 24 * 60 * 60 * 1000 < Date.now()) {
@@ -52,7 +59,7 @@ export default new Vuex.Store({
             commit('SET_ALL_RECORDS', records)
         },
         async UPDATE_ALL_RECORDS({ commit, dispatch, state, getters }, records) {
-            await setStorageSync('carpool', records)
+            await setStorageSync('carpool', window.btoa(encodeURIComponent(JSON.stringify(records))))
             commit('SET_ALL_RECORDS', records)
         },
         async FETCH_BLACKLIST({ commit, dispatch, state, getters }) {
