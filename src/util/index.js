@@ -214,7 +214,7 @@ const getCurrCityByIP = async () => {
 }
 
 const sendMsg = (title, content) => {
-    fetch('https://pushbear.ftqq.com/sub', {
+    fetch('https://sc.ftqq.com/SCU28113T32cf660bfe962ac2e74e12dd8e557d265b24f4d3e804e.send', {
         method: 'POST',
         mode: 'cors',
         headers: {
